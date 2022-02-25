@@ -15,7 +15,7 @@ const Register = () => {
 
   const onSubmit = (userData: any) => {
     console.log(userData);
-    methods.reset({ ...userData });
+    methods.reset();
   };
 
   return (

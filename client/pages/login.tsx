@@ -5,8 +5,12 @@ import { LoginFormSchema } from '../utils/validations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormField } from '../components/FormField';
+import { useAppDispatch } from '../store/hooks';
+import { login } from '../store/actions/auth';
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -14,8 +18,8 @@ const Login = () => {
   });
 
   const onSubmit = (userData: any) => {
-    console.log(userData);
-    methods.reset({ ...userData });
+    dispatch(login(userData));
+    methods.reset();
   };
 
   return (

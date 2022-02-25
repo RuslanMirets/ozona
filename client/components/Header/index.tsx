@@ -2,9 +2,10 @@ import React from 'react';
 import styles from './Header.module.scss';
 import { Container } from '@mui/material';
 import Link from 'next/link';
+import { useAppSelector } from '../../store/hooks';
 
 export const Header: React.FC = () => {
-  const userData = false;
+  const { userData } = useAppSelector((state) => state.auth);
 
   return (
     <header className={styles.header}>
@@ -43,7 +44,7 @@ export const Header: React.FC = () => {
                     <a>Профиль</a>
                   </Link>
                 </li>
-                <li>Выйти</li>
+                <li style={{ cursor: 'pointer' }}>Выйти</li>
               </>
             ) : (
               <>
