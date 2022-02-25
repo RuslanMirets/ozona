@@ -1,7 +1,13 @@
+import { Container } from '@mui/material';
 import type { NextPage } from 'next';
+import MainLayout from '../layouts/MainLayout';
 
 const Home: NextPage = () => {
-  return <div>Home page</div>;
+  return (
+    <MainLayout>
+      <Container>Home page</Container>
+    </MainLayout>
+  );
 };
 
 export default Home;
