@@ -1,15 +1,17 @@
 import { Button, Container } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import { LoginFormSchema } from '../utils/validations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormField } from '../components/FormField';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { login } from '../store/actions/auth';
+import router from 'next/router';
 
 const Login = () => {
   const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.auth);
 
   const methods = useForm({
     mode: 'onChange',
@@ -21,6 +23,12 @@ const Login = () => {
     dispatch(login(userData));
     methods.reset();
   };
+
+  useEffect(() => {
+    if (userData) {
+      router.push('/');
+    }
+  }, [userData]);
 
   return (
     <MainLayout title="Авторизация">
