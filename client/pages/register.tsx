@@ -4,7 +4,7 @@ import MainLayout from '../layouts/MainLayout';
 import { RegisterFormSchema } from '../utils/validations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
-import FormField from '../components/FormField';
+import { FormField } from '../components/FormField';
 
 const Register = () => {
   const methods = useForm({

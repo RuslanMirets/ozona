@@ -8,7 +8,7 @@ interface FormFieldProps {
   type: string;
 }
 
-const FormField: React.FC<FormFieldProps> = ({ name, label, type }) => {
+export const FormField: React.FC<FormFieldProps> = ({ name, label, type }) => {
   const { register, formState } = useFormContext();
 
   return (
@@ -23,5 +23,3 @@ const FormField: React.FC<FormFieldProps> = ({ name, label, type }) => {
     />
   );
 };
-
-export default FormField;

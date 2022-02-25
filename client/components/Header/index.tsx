@@ -3,7 +3,7 @@ import styles from './Header.module.scss';
 import { Container } from '@mui/material';
 import Link from 'next/link';
 
-const Header = () => {
+export const Header: React.FC = () => {
   const userData = false;
 
   return (
@@ -27,6 +27,11 @@ const Header = () => {
             <li>
               <Link href="/contacts">
                 <a>Контакты</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/users">
+                <a>Список пользователей</a>
               </Link>
             </li>
           </ul>
@@ -60,5 +65,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;
