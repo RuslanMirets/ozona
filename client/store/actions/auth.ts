@@ -17,6 +17,15 @@ export const login = (userData: IUser) => async (dispatch: AppDispatch) => {
   }
 };
 
+export const register = (userData: IUser) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await postAPI('auth/register', userData);
+    dispatch(authSlice.actions.register(response.data));
+  } catch (error: any) {
+    console.log(error.response.data.message);
+  }
+};
+
 export const logout = () => async (dispatch: AppDispatch) => {
   try {
     destroyCookie(null, 'ozonaToken', null);
