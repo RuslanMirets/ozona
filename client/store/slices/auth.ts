@@ -17,6 +17,9 @@ export const authSlice = createSlice({
     login(state, action: PayloadAction<IUser>) {
       state.userData = action.payload;
     },
+    logout(state) {
+      state.userData = null;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
