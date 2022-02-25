@@ -46,7 +46,7 @@ export const Header: React.FC = () => {
             {userData ? (
               <>
                 <li>
-                  <Link href="#">
+                  <Link href={`/profile/${userData.id}`}>
                     <a>Профиль</a>
                   </Link>
                 </li>
