@@ -1,3 +1,4 @@
+import { RoleModule } from './../role/role.module';
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
@@ -11,6 +12,7 @@ import { LocalStrategy } from './strategies/local.strategy';
   imports: [
     PassportModule,
     UserModule,
+    RoleModule,
     JwtModule.register({
       secret: process.env.JWTKEY,
       signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
