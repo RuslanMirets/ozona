@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { Alert } from '../components/Alert';
 import { Header } from '../components/Header';
 
 interface MainLayoutProps {
@@ -20,6 +21,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description, k
       </Head>
       <div className="wrapper">
         <Header />
+        <Alert />
         <main className="main">{children}</main>
       </div>
     </>
