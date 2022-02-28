@@ -11,7 +11,7 @@ interface ProductItemProps {
 export const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   return (
     <div className={styles.card}>
-      <Link href="#">
+      <Link href={`product/${product.id}`}>
         <a>
           <img
             src={
@@ -26,7 +26,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
       <div className={styles.body}>
         <h5 className={styles.name}>{product.name}</h5>
         <div className={styles.price}>{product.price} руб.</div>
-        <Link href="#">
+        <Link href={`product/${product.id}`}>
           <a>
             <Button variant="contained">Подробнее</Button>
           </a>
