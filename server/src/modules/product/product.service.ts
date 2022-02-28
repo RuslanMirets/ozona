@@ -7,8 +7,8 @@ import { Inject, Injectable } from '@nestjs/common';
 export class ProductService {
   constructor(@Inject(PRODUCT_REPOSITORY) private readonly productRepository: typeof Product) {}
 
-  async create(dto: CreateProductDto): Promise<Product> {
-    return await this.productRepository.create<Product>(dto);
+  async create(dto: CreateProductDto, images): Promise<Product> {
+    return await this.productRepository.create({ ...dto, images });
   }
 
   async findAll() {

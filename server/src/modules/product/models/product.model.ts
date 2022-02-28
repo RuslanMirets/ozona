@@ -1,4 +1,4 @@
-import { Table, Model, Column, DataType, } from 'sequelize-typescript';
+import { Table, Model, Column, DataType } from 'sequelize-typescript';
 
 @Table({ tableName: 'Product' })
 export class Product extends Model<Product> {
@@ -10,4 +10,7 @@ export class Product extends Model<Product> {
 
   @Column({ type: DataType.FLOAT, allowNull: false })
   price: number;
+
+  @Column({ type: DataType.JSONB, allowNull: true })
+  images: string;
 }
