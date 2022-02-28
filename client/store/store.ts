@@ -1,15 +1,17 @@
-import { alertReduer } from './slices/alert';
-import { authReduer } from './slices/auth';
-import { userReduer } from './slices/user';
+import { productReducer } from './slices/product';
+import { alertReducer } from './slices/alert';
+import { authReducer } from './slices/auth';
+import { userReducer } from './slices/user';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 
 export function makeStore() {
   return configureStore({
     reducer: {
-      user: userReduer,
-      auth: authReduer,
-      alert: alertReduer,
+      user: userReducer,
+      auth: authReducer,
+      alert: alertReducer,
+      product: productReducer,
     },
   });
 }

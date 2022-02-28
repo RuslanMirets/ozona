@@ -27,6 +27,11 @@ export const Header: React.FC = () => {
               </Link>
             </li>
             <li>
+              <Link href="/catalog">
+                <a>Каталог</a>
+              </Link>
+            </li>
+            <li>
               <Link href="/about">
                 <a>О нас</a>
               </Link>
