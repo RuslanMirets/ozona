@@ -9,6 +9,7 @@ import {
   UploadedFiles,
   Param,
   Res,
+  Request,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -46,6 +47,11 @@ export class ProductController {
   @Get()
   findAll() {
     return this.productService.findAll();
+  }
+
+  @Get(':id')
+  findOneById(@Param('id') id: string) {
+    return this.productService.findOneById(+id);
   }
 
   @Get('product-image/:imagename')

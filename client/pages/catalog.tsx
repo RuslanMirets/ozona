@@ -28,7 +28,7 @@ const Catalog = () => {
         </ul> */}
         <div className="catalog-list">
           {products.map((product) => (
-            <ProductItem product={product} />
+            <ProductItem key={product.id} product={product} />
           ))}
         </div>
       </Container>
