@@ -28,10 +28,6 @@ export const authSlice = createSlice({
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
-      // return {
-      //   ...state,
-      //   ...action.payload.auth.data,
-      // };
       state.userData = action.payload.auth.userData;
     },
   },

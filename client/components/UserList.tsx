@@ -3,12 +3,7 @@ import { getUsers } from '../store/actions/user';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 export const UserList: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { users } = useAppSelector((state) => state.user);
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, []);
 
   return (
     <ul>

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 import { IUser } from '../../models/user';
 
 export interface UserState {
@@ -15,6 +16,11 @@ export const userSlice = createSlice({
   reducers: {
     getUsers(state, action) {
       state.users = action.payload;
+    },
+  },
+  extraReducers: {
+    [HYDRATE]: (state, action) => {
+      state.users = action.payload.user.users;
     },
   },
 });
