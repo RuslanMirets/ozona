@@ -13,11 +13,11 @@ export const getUsers = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const profile = (ctx: any) => async (dispatch: AppDispatch) => {
+export const profile = () => async (dispatch: AppDispatch) => {
   try {
-    const { ozonaToken } = parseCookies(ctx);
+    const { ozonaToken } = parseCookies();
     const response = await getAPI('user/profile', ozonaToken);
-    dispatch(authSlice.actions.login(response.data));
+    dispatch(userSlice.actions.profile(response.data));
   } catch (error) {
     console.log('Profile error');
   }

@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Header.module.scss';
 import { Container } from '@mui/material';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../store/actions/auth';
+import { profile } from '../../store/actions/user';
+import { useRouter } from 'next/router';
 
 export const Header: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const { userData } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.user);
 
   const handleLogout = () => {
     dispatch(logout());
   };
+  const isAdmin = user?.role[0].value === 'ADMIN';
+
+  useEffect(() => {
+    dispatch(profile());
+  }, []);
 
   return (
     <header className={styles.header}>
@@ -55,6 +64,13 @@ export const Header: React.FC = () => {
                     <a>Профиль</a>
                   </Link>
                 </li>
+                {isAdmin && (
+                  <li>
+                    <Link href="/admin">
+                      <a>Панель администратора</a>
+                    </Link>
+                  </li>
+                )}
                 <li style={{ cursor: 'pointer' }} onClick={handleLogout}>
                   Выйти
                 </li>

@@ -1,8 +1,8 @@
 import { authSlice } from './../slices/auth';
-import { postAPI } from './../../utils/FetchData';
+import { getAPI, postAPI } from './../../utils/FetchData';
 import { AppDispatch } from './../store';
 import { IUser } from './../../models/user';
-import { setCookie, destroyCookie } from 'nookies';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
 import { alertSlice } from '../slices/alert';
 
 export const login = (userData: IUser) => async (dispatch: AppDispatch) => {
@@ -36,5 +36,15 @@ export const logout = () => async (dispatch: AppDispatch) => {
     dispatch(alertSlice.actions.success('Выход из системы'));
   } catch (error: any) {
     dispatch(alertSlice.actions.errors(error.response.data.message));
+  }
+};
+
+export const isAuth = (ctx: any) => async (dispatch: AppDispatch) => {
+  try {
+    const { ozonaToken } = parseCookies(ctx);
+    const response = await getAPI('user/profile', ozonaToken);
+    dispatch(authSlice.actions.login(response.data));
+  } catch (error) {
+    console.log('Is auth error');
   }
 };
