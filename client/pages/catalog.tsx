@@ -5,14 +5,15 @@ import { ProductItem } from '../components/ProductItem';
 import MainLayout from '../layouts/MainLayout';
 import { getProducts } from '../store/actions/product';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { wrapper } from '../store/store';
 
 const Catalog: NextPage = () => {
   const dispatch = useAppDispatch();
   const { products } = useAppSelector((state) => state.product);
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, []);
 
   return (
     <MainLayout title="Каталог">
@@ -26,5 +27,10 @@ const Catalog: NextPage = () => {
     </MainLayout>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+  await store.dispatch(getProducts());
+  return { props: {} };
+});
 
 export default Catalog;
