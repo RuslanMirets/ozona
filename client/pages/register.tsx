@@ -1,15 +1,17 @@
 import { Button, Container } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import { RegisterFormSchema } from '../utils/validations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormField } from '../components/FormField';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { register } from '../store/actions/auth';
+import { useRouter } from 'next/router';
 
 const Register = () => {
   const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.auth);
 
   const methods = useForm({
     mode: 'onChange',
@@ -21,6 +23,17 @@ const Register = () => {
     dispatch(register(userData));
     methods.reset();
   };
+
+  const router = useRouter();
+  useEffect(() => {
+    if (userData) {
+      router.push(`/profile/${userData.id}`);
+    }
+  }, [userData]);
+
+  if (userData) {
+    return <MainLayout title="Регистрация"></MainLayout>;
+  }
 
   return (
     <MainLayout title="Регистрация">

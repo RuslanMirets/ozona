@@ -7,7 +7,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { FormField } from '../components/FormField';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { login } from '../store/actions/auth';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -24,11 +24,16 @@ const Login = () => {
     methods.reset();
   };
 
+  const router = useRouter();
   useEffect(() => {
     if (userData) {
       router.push(`/profile/${userData.id}`);
     }
   }, [userData]);
+
+  if (userData) {
+    return <MainLayout title="Авторизация"></MainLayout>;
+  }
 
   return (
     <MainLayout title="Авторизация">
