@@ -14,3 +14,8 @@ export const RegisterFormSchema = yup
     name: yup.string().required('Имя обязательно'),
   })
   .concat(LoginFormSchema);
+
+export const CreateProductFormSchema = yup.object().shape({
+  name: yup.string().required('Введите название'),
+  price: yup.number().typeError('Цена должна быть числом').required('Введите цену'),
+});
