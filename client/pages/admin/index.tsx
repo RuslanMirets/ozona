@@ -6,9 +6,9 @@ import MainLayout from '../../layouts/MainLayout';
 import { useAppSelector } from '../../store/hooks';
 
 const AdminPage: NextPage = () => {
-  const { user } = useAppSelector((state) => state.user);
+  const { userData } = useAppSelector((state) => state.auth);
 
-  const isAdmin = user?.role[0].value === 'ADMIN';
+  const isAdmin = userData?.role[0].value === 'ADMIN';
 
   const router = useRouter();
   useEffect(() => {
