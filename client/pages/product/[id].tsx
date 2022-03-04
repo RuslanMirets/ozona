@@ -17,13 +17,15 @@ const Product: NextPage<IParams> = ({ serverProduct }) => {
       <Container>
         <h1>Продукт</h1>
         <div>{product?.name}</div>
-        {product.images?.map((image, index) => (
-          <img
-            key={index}
-            src={`http://localhost:5000/upload/product-image/${image}`}
-            alt="Product"
-          />
-        ))}
+        <div className='product-images'>
+          {product.images?.map((image, index) => (
+            <img
+              key={index}
+              src={`http://localhost:5000/upload/product-image/${image}`}
+              alt="Product"
+            />
+          ))}
+        </div>
       </Container>
     </MainLayout>
   );
