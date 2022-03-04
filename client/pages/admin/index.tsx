@@ -5,11 +5,14 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FormField } from '../../components/FormField';
+import { UploadImages } from '../../components/UploadImages';
 import MainLayout from '../../layouts/MainLayout';
-import { useAppSelector } from '../../store/hooks';
+import { createProduct } from '../../store/actions/product';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { CreateProductFormSchema } from '../../utils/validations';
 
 const AdminPage: NextPage = () => {
+  const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.auth);
 
   const isAdmin = userData?.role[0].value === 'ADMIN';
@@ -28,7 +31,7 @@ const AdminPage: NextPage = () => {
   });
 
   const onSubmit = (productData: any) => {
-    console.log(productData);
+    dispatch(createProduct(productData));
     methods.reset();
   };
 
@@ -46,6 +49,8 @@ const AdminPage: NextPage = () => {
               </Button>
             </form>
           </FormProvider>
+
+          <UploadImages />
         </div>
       </Container>
     </MainLayout>

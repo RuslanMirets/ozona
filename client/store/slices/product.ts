@@ -1,13 +1,15 @@
 import { IProduct } from './../../models/product';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
 export interface AuthState {
   products: IProduct[];
+  product: IProduct | null;
 }
 
 const initialState: AuthState = {
   products: [],
+  product: null,
 };
 
 export const productSlice = createSlice({
@@ -17,6 +19,9 @@ export const productSlice = createSlice({
     getProducts(state, action) {
       state.products = action.payload;
     },
+    createProduct(state, action: PayloadAction<IProduct>) {
+      state.product = action.payload
+    }
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
