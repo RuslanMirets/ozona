@@ -14,12 +14,13 @@ export const getProducts = () => async (dispatch: AppDispatch) => {
   }
 };
 
-export const createProduct = (productData: IProduct) => async (dispatch: AppDispatch) => {
-  try {
-    const response = await postAPI('product', productData);
-    dispatch(productSlice.actions.createProduct(response.data));
-    dispatch(alertSlice.actions.success('Товар добавлен'));
-  } catch (error: any) {
-    dispatch(alertSlice.actions.errors(error.response.data.message));
-  }
-};
+export const createProduct =
+  (payload: { name: string; price: number; images: string[] }) => async (dispatch: AppDispatch) => {
+    try {
+      const response = await postAPI('product', payload);
+      dispatch(productSlice.actions.createProduct(response.data));
+      dispatch(alertSlice.actions.success('Товар добавлен'));
+    } catch (error: any) {
+      dispatch(alertSlice.actions.errors(error.response.data.message));
+    }
+  };

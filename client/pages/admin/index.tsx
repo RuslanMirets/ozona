@@ -9,11 +9,18 @@ import { UploadImages } from '../../components/UploadImages';
 import MainLayout from '../../layouts/MainLayout';
 import { createProduct } from '../../store/actions/product';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { uploadImage } from '../../utils/UploadImage';
 import { CreateProductFormSchema } from '../../utils/validations';
+
+export interface ImageObj {
+  blobUrl: string;
+  file: File;
+}
 
 const AdminPage: NextPage = () => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.auth);
+  const [images, setImages] = React.useState<ImageObj[]>([]);
 
   const isAdmin = userData?.role[0].value === 'ADMIN';
 
@@ -30,9 +37,16 @@ const AdminPage: NextPage = () => {
     resolver: yupResolver(CreateProductFormSchema),
   });
 
-  const onSubmit = (productData: any) => {
-    dispatch(createProduct(productData));
+  const onSubmit = async ({ name, price }: any): Promise<void> => {
+    let result = [];
+    for (let i = 0; i < images.length; i++) {
+      const file = images[i].file;
+      const data = await uploadImage(file);
+      result.push(data);
+    }
+    dispatch(createProduct({ name, price, images: result }));
     methods.reset();
+    setImages([]);
   };
 
   return (
@@ -49,8 +63,7 @@ const AdminPage: NextPage = () => {
               </Button>
             </form>
           </FormProvider>
-
-          <UploadImages />
+          <UploadImages images={images} onChangeImages={setImages} />
         </div>
       </Container>
     </MainLayout>

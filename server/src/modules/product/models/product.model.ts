@@ -10,4 +10,7 @@ export class Product extends Model<Product> {
 
   @Column({ type: DataType.FLOAT, allowNull: false })
   price: number;
+
+  @Column({ type: DataType.JSONB, allowNull: true })
+  images: string;
 }

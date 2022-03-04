@@ -9,16 +9,9 @@
 
 import axios from 'axios';
 
-interface UploadImageReturnProps {
-  height: number;
-  size: number;
-  url: string;
-  width: number;
-}
-
-export const uploadImage = async (image: File): Promise<UploadImageReturnProps> => {
+export const uploadImage = async (image: File) => {
   const formData = new FormData();
-  formData.append('image', image);
+  formData.append('images', image);
 
   const { data } = await axios.post('http://localhost:5000/upload/', formData, {
     headers: {
