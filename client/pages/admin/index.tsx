@@ -41,8 +41,8 @@ const AdminPage: NextPage = () => {
     let result = [];
     for (let i = 0; i < images.length; i++) {
       const file = images[i].file;
-      const data = await uploadImage(file);
-      result.push(data);
+      const { filename } = await uploadImage(file);
+      result.push(filename);
     }
     dispatch(createProduct({ name, price, images: result }));
     methods.reset();
