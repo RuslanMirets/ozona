@@ -4,6 +4,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { IUserDetails } from '../user/interfaces/user-details.interface';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from 'src/core/guards/local-auth.guard';
+import { DoesUserExist } from 'src/core/guards/doesUserExist.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -15,6 +16,7 @@ export class AuthController {
     return this.authService.login(user);
   }
 
+  @UseGuards(DoesUserExist)
   @Post('register')
   register(@Body() user: CreateUserDto): Promise<IUserDetails | null> {
     return this.authService.register(user);
