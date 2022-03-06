@@ -24,8 +24,6 @@ export class AuthService {
     const { email, password } = existingUser;
     const user = await this.validateUser(email, password);
 
-    if (!user) throw new UnauthorizedException('Неверные учетные данные пользователя');
-
     const jwt = await this.jwtService.signAsync({ user });
     return { user, token: jwt };
   }
