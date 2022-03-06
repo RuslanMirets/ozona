@@ -1,3 +1,4 @@
+import { RoleModule } from './../role/role.module';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { UserModule } from './../user/user.module';
@@ -9,6 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     UserModule,
+    RoleModule,
     JwtModule.registerAsync({
       useFactory: () => ({
         secret: process.env.JWTKEY || 'SECRET',

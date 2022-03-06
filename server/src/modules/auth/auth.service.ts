@@ -1,3 +1,4 @@
+import { RoleService } from './../role/role.service';
 import { LoginUserDto } from './../user/dto/login-user.dto';
 import { CreateUserDto } from './../user/dto/create-user.dto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -8,7 +9,11 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService, private jwtService: JwtService) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService,
+    private roleService: RoleService,
+  ) {}
 
   async validateUser(email: string, password: string): Promise<IUserDetails | null> {
     const user = await this.userService.findOneByEmail(email);
@@ -29,11 +34,16 @@ export class AuthService {
   }
 
   async register(user: Readonly<CreateUserDto>): Promise<IUserDetails | any> {
-    const { name, email, password } = user;
+    const { name, email, password, roles } = user;
 
     const hashedPassword = await this.hashPassword(password);
 
-    const newUser = await this.userService.create(name, email, hashedPassword);
+    const newUser = await this.userService.create(name, email, hashedPassword, roles);
+
+    const role = await this.roleService.findOneByValue('USER');
+    newUser.roles.push(role.id)
+    await newUser.save();
+
     return this.userService._getUserDetails(newUser);
   }
 

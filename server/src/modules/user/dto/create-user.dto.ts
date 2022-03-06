@@ -11,4 +11,6 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Введите пароль' })
   @MinLength(6, { message: 'Пароль должен быть минимум 6 символов' })
   readonly password: string;
+
+  readonly roles: any[]
 }

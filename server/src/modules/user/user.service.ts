@@ -13,14 +13,21 @@ export class UserService {
       id: user._id,
       name: user.name,
       email: user.email,
+      roles: user.roles,
     };
   }
 
-  async create(name: string, email: string, hashedPassword: string): Promise<UserDocument> {
+  async create(
+    name: string,
+    email: string,
+    hashedPassword: string,
+    roles: Comment[],
+  ): Promise<UserDocument> {
     const newUser = new this.userModel({
       name,
       email,
       password: hashedPassword,
+      roles,
     });
     return newUser.save();
   }
