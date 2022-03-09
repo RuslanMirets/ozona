@@ -18,6 +18,8 @@ import styles from './Header.module.scss';
 import MenuIcon from '@mui/icons-material/Menu';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { logout } from '../../store/actions/auth';
 
 export const Header: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -38,7 +40,12 @@ export const Header: React.FC = () => {
     setAnchorElUser(null);
   };
 
-  const isAuth = false;
+  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <AppBar classes={{ root: styles.root }} position="static">
@@ -117,13 +124,13 @@ export const Header: React.FC = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            {isAuth ? (
+            {userData ? (
               <>
                 <Button
                   className={styles.menuBtn}
                   onClick={handleOpenUserMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}>
-                  Username
+                  {userData.name}
                 </Button>
                 <Menu
                   sx={{ mt: '45px' }}
@@ -143,7 +150,7 @@ export const Header: React.FC = () => {
                   <MenuItem onClick={handleCloseUserMenu}>
                     <Typography textAlign="center">Профиль</Typography>
                   </MenuItem>
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">Выйти</Typography>
                   </MenuItem>
                 </Menu>

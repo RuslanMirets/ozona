@@ -1,14 +1,20 @@
 import { Button } from '@mui/material';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainLayout from '../layouts/MainLayout';
 import { FormField } from '../components/FormField';
 import { LoginFormSchema } from '../utils/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { login } from '../store/actions/auth';
+import { useRouter } from 'next/router';
 
 const Login: NextPage = () => {
+  const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.auth);
+
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -16,9 +22,20 @@ const Login: NextPage = () => {
   });
 
   const onSubmit = (userData: any) => {
-    console.log(userData);
+    dispatch(login(userData));
     methods.reset();
   };
+
+  const router = useRouter();
+  useEffect(() => {
+    if (userData) {
+      router.push('/');
+    }
+  }, [userData]);
+
+  if (userData) {
+    return <MainLayout title="Авторизация"></MainLayout>;
+  }
 
   return (
     <MainLayout title="Авторизация">

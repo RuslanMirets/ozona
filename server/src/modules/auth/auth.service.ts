@@ -1,7 +1,7 @@
+import { UserDocument } from './../user/schemas/user.schema';
 import { LoginUserDto } from './../user/dto/login-user.dto';
 import { CreateUserDto } from './../user/dto/create-user.dto';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { IUserDetails } from '../user/interfaces/user-details.interface';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
@@ -10,17 +10,17 @@ import * as bcrypt from 'bcrypt';
 export class AuthService {
   constructor(private userService: UserService, private jwtService: JwtService) {}
 
-  async validateUser(email: string, password: string): Promise<IUserDetails | null> {
+  async validateUser(email: string, password: string): Promise<UserDocument | null> {
     const user = await this.userService.findOneByEmail(email);
     if (!user) return null;
 
     const match = await this.comparePassword(password, user.password);
     if (!match) return null;
 
-    return this.userService._getUserDetails(user);
+    return user;
   }
 
-  async login(existingUser: LoginUserDto): Promise<{ user: IUserDetails; token: string } | null> {
+  async login(existingUser: LoginUserDto): Promise<{ user: UserDocument; token: string } | null> {
     const { email, password } = existingUser;
     const user = await this.validateUser(email, password);
 
@@ -28,13 +28,11 @@ export class AuthService {
     return { user, token: jwt };
   }
 
-  async register(user: Readonly<CreateUserDto>): Promise<IUserDetails | any> {
-    const { name, email, password } = user;
+  async register(user: CreateUserDto): Promise<UserDocument | any> {
+    const pass = await this.hashPassword(user.password);
 
-    const hashedPassword = await this.hashPassword(password);
-
-    const newUser = await this.userService.create(name, email, hashedPassword);
-    return this.userService._getUserDetails(newUser);
+    const newUser = await this.userService.create({ ...user, password: pass });
+    return newUser;
   }
 
   async hashPassword(password: string): Promise<string> {

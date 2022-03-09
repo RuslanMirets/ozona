@@ -1,6 +1,5 @@
 import { UserService } from 'src/modules/user/user.service';
-import { Controller, Get, Param, UseGuards } from '@nestjs/common';
-import { IUserDetails } from './interfaces/user-details.interface';
+import { Controller, Get, Param, UseGuards, Request } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
 
 @Controller('user')
@@ -13,8 +12,9 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  findOneById(@Param('id') id: string): Promise<IUserDetails | null> {
-    return this.userService.findOneById(id);
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
+    return this.userService.findOneById(req.user._id);
   }
 }
