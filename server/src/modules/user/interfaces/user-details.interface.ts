@@ -4,4 +4,5 @@ export interface IUserDetails {
   email: string;
   role: string;
   root: Boolean;
+  avatar: string;
 }

@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true })
   name: string;
@@ -19,6 +19,9 @@ export class User {
 
   @Prop({ default: false })
   root: Boolean;
+
+  @Prop({ default: 'https://www.pinclipart.com/picdir/big/92-928150_home-2-person-clipart.png' })
+  avatar: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

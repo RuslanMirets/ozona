@@ -15,6 +15,7 @@ export class UserService {
       email: user.email,
       role: user.role,
       root: user.root,
+      avatar: user.avatar,
     };
   }
 
