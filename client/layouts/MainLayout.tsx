@@ -1,5 +1,6 @@
+import { Container } from '@mui/material';
 import Head from 'next/head';
-import { Alert } from '../components/Alert';
+import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 
 interface MainLayoutProps {
@@ -18,11 +19,17 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description, k
         <meta name="keywords" content={keywords || 'Магазин товаров'} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,800,900&display=swap"
+        />
       </Head>
       <div className="wrapper">
         <Header />
-        <Alert />
-        <main className="main">{children}</main>
+        <main className="main">
+          <Container>{children}</Container>
+        </main>
+        <Footer />
       </div>
     </>
   );

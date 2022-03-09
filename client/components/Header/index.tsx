@@ -1,97 +1,169 @@
-import React, { useEffect } from 'react';
-import styles from './Header.module.scss';
-import { Container } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import Link from 'next/link';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { logout } from '../../store/actions/auth';
-import { profile } from '../../store/actions/user';
-import { useRouter } from 'next/router';
+import React from 'react';
+import styles from './Header.module.scss';
+import MenuIcon from '@mui/icons-material/Menu';
+import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 export const Header: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const { userData } = useAppSelector((state) => state.auth);
-  const { user } = useAppSelector((state) => state.user);
-
-  const handleLogout = () => {
-    dispatch(logout());
+  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElNav(event.currentTarget);
   };
-  const isAdmin = user?.role[0].value === 'ADMIN';
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-  useEffect(() => {
-    dispatch(profile());
-  }, []);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const isAuth = false;
 
   return (
-    <header className={styles.header}>
+    <AppBar classes={{ root: styles.root }} position="static">
       <Container>
-        <div className={styles.body}>
-          <Link href="/">
-            <a className={styles.logo}>OZONA</a>
-          </Link>
-          <ul className={styles.menu}>
-            <li>
-              <Link href="/">
-                <a>Главная</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/catalog">
-                <a>Каталог</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/about">
-                <a>О нас</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/contacts">
-                <a>Контакты</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/users">
-                <a>Список пользователей</a>
-              </Link>
-            </li>
-          </ul>
-          <ul className={styles.actions}>
-            {userData ? (
-              <>
-                <li>
-                  <Link href={`/profile/${userData.id}`}>
-                    <a>Профиль</a>
+        <Toolbar disableGutters>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}>
+            <Link href="/">
+              <a>OZONA</a>
+            </Link>
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit">
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}>
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">
+                  <Link href="/cart">
+                    <a>Корзина</a>
                   </Link>
-                </li>
-                {isAdmin && (
-                  <li>
-                    <Link href="/admin">
-                      <a>Панель администратора</a>
-                    </Link>
-                  </li>
-                )}
-                <li style={{ cursor: 'pointer' }} onClick={handleLogout}>
-                  Выйти
-                </li>
+                </Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Link href="/">
+              <a>OZONA</a>
+            </Link>
+          </Typography>
+          <Box
+            sx={{ flexGrow: 1, justifyContent: 'flex-end', display: { xs: 'none', md: 'flex' } }}>
+            <Button
+              className={styles.menuBtn}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}>
+              <Link href="/cart">
+                <a>
+                  <Badge badgeContent={99} color="error">
+                    <LocalMallOutlinedIcon />
+                  </Badge>
+                  Корзина
+                </a>
+              </Link>
+            </Button>
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            {isAuth ? (
+              <>
+                <Button
+                  className={styles.menuBtn}
+                  onClick={handleOpenUserMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}>
+                  Username
+                </Button>
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">Профиль</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">Выйти</Typography>
+                  </MenuItem>
+                </Menu>
               </>
             ) : (
-              <>
-                <li>
-                  <Link href="/login">
-                    <a>Войти</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/register">
-                    <a>Зарегистрироваться</a>
-                  </Link>
-                </li>
-              </>
+              <Button
+                className={styles.menuBtn}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}>
+                <Link href="/login">
+                  <a>
+                    <AccountCircleOutlinedIcon />
+                    Войти
+                  </a>
+                </Link>
+              </Button>
             )}
-          </ul>
-        </div>
+          </Box>
+        </Toolbar>
       </Container>
-    </header>
+    </AppBar>
   );
 };
