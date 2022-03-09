@@ -1,17 +1,19 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ROLE_REPOSITORY } from 'src/core/constants';
 import { CreateRoleDto } from './dto/create-role.dto';
-import { Role } from './models/role.model';
+import { Model } from 'mongoose';
+import { RoleDocument } from './schemas/role.schema';
+import { ROLE_MODEL } from './../../core/constants/index';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class RoleService {
-  constructor(@Inject(ROLE_REPOSITORY) private readonly roleRepository: typeof Role) {}
+  constructor(@Inject(ROLE_MODEL) private roleModel: Model<RoleDocument>) {}
 
-  async create(dto: CreateRoleDto): Promise<Role> {
-    return await this.roleRepository.create<Role>(dto);
+  async create(dto: CreateRoleDto): Promise<RoleDocument> {
+    const newRole = new this.roleModel(dto);
+    return newRole.save();
   }
 
-  async findOneByValue(value: string): Promise<Role> {
-    return await this.roleRepository.findOne<Role>({ where: { value } });
+  async findOneByValue(value: string): Promise<RoleDocument | null> {
+    return await this.roleModel.findOne({ value }).exec();
   }
 }

@@ -1,23 +1,20 @@
-import { RoleGuard } from './../../core/guards/role.guard';
-import { Controller, Get, UseGuards, Request } from '@nestjs/common';
-import { Role } from 'src/core/decorators/role-auth.decorator';
-import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
-import { UserService } from './user.service';
+import { JwtAuthGuard } from './../../core/guards/jwt-auth.guard';
+import { UserService } from 'src/modules/user/user.service';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { IUserDetails } from './interfaces/user-details.interface';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
-  // @Role('ADMIN')
-  // @UseGuards(JwtAuthGuard, RoleGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.userService.findAll();
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return this.userService.findOneById(req.user.id);
+  @Get(':id')
+  findOneById(@Param('id') id: string): Promise<IUserDetails | null> {
+    return this.userService.findOneById(id);
   }
 }

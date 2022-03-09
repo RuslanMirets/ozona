@@ -1,8 +1,10 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { LoginUserDto } from './../user/dto/login-user.dto';
+import { CreateUserDto } from './../user/dto/create-user.dto';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { IUserDetails } from '../user/interfaces/user-details.interface';
 import { AuthService } from './auth.service';
-import { CreateUserDto } from '../user/dto/create-user.dto';
-import { DoesUserExist } from 'src/core/guards/doesUserExist.guard';
 import { LocalAuthGuard } from 'src/core/guards/local-auth.guard';
+import { DoesUserExist } from 'src/core/guards/doesUserExist.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -10,13 +12,13 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  login(@Body() user: LoginUserDto): Promise<{ user: IUserDetails; token: string } | null> {
+    return this.authService.login(user);
   }
 
   @UseGuards(DoesUserExist)
   @Post('register')
-  async register(@Body() dto: CreateUserDto) {
-    return await this.authService.register(dto);
+  register(@Body() user: CreateUserDto): Promise<IUserDetails | null> {
+    return this.authService.register(user);
   }
 }

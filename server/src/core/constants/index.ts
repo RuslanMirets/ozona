@@ -1,8 +1,3 @@
-export const SEQUELIZE = 'SEQUELIZE';
-export const DEVELOPMENT = 'development';
-export const TEST = 'test';
-export const PRODUCTION = 'production';
-export const USER_REPOSITORY = 'USER_REPOSITORY';
-export const ROLE_REPOSITORY = 'ROLE_REPOSITORY';
-export const PRODUCT_REPOSITORY = 'PRODUCT_REPOSITORY';
-export const UPLOAD_REPOSITORY = 'UPLOAD_REPOSITORY';
+export const DATABASE_CONNECTION = 'DATABASE_CONNECTION';
+export const USER_MODEL = 'USER_MODEL';
+export const ROLE_MODEL = 'ROLE_MODEL';

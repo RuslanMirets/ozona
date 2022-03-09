@@ -1,25 +1,48 @@
+import { Model } from 'mongoose';
 import { Inject, Injectable } from '@nestjs/common';
-import { USER_REPOSITORY } from 'src/core/constants';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './models/user.model';
+import { USER_MODEL } from 'src/core/constants';
+import { UserDocument } from './schemas/user.schema';
+import { IUserDetails } from './interfaces/user-details.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@Inject(USER_REPOSITORY) private readonly userRepository: typeof User) {}
+  constructor(@Inject(USER_MODEL) private userModel: Model<UserDocument>) {}
 
-  async create(dto: CreateUserDto): Promise<User> {
-    return await this.userRepository.create<User>(dto);
+  _getUserDetails(user: UserDocument): IUserDetails {
+    return {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      roles: user.roles,
+    };
   }
 
-  async findOneByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { email }, include: { all: true } });
+  async create(
+    name: string,
+    email: string,
+    hashedPassword: string,
+    roles: Comment[],
+  ): Promise<UserDocument> {
+    const newUser = new this.userModel({
+      name,
+      email,
+      password: hashedPassword,
+      roles,
+    });
+    return newUser.save();
   }
 
-  async findOneById(id: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { id }, include: { all: true } });
+  async findOneByEmail(email: string): Promise<UserDocument | null> {
+    return await this.userModel.findOne({ email }).exec();
+  }
+
+  async findOneById(id: string): Promise<IUserDetails | null> {
+    const user = await this.userModel.findById(id).exec();
+    if (!user) return null;
+    return this._getUserDetails(user);
   }
 
   async findAll() {
-    return await this.userRepository.findAll({ include: { all: true } });
+    return await this.userModel.find().exec();
   }
 }
