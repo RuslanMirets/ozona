@@ -15,4 +15,8 @@ export class ProductService {
   async findAll() {
     return await this.productModel.find().exec();
   }
+
+  async findOneById(_id: string): Promise<ProductDocument | null> {
+    return await this.productModel.findOne({ _id }).exec();
+  }
 }

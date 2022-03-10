@@ -13,7 +13,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
       <Link href={`/product/${product._id}`}>
         <a style={{ display: 'block', height: 250 }}>
           <CardMedia
-            sx={{ objectPosition: 'top' }}
+            sx={{ objectPosition: '0 30%' }}
             component="img"
             image={product.images[0].url}
             alt={product.images[0].url}
@@ -33,7 +33,11 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
             {product.price} руб.
           </Typography>
           <Typography variant="body1" color="crimson">
-            В наличии: {product.inStock}
+            {product.inStock > 0 ? (
+              <div>В наличии: {product.inStock}</div>
+            ) : (
+              <div>Нет в наличии</div>
+            )}
           </Typography>
         </div>
         <Typography variant="body2" color="text.secondary">
@@ -46,7 +50,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
             <a>Подробнее</a>
           </Link>
         </Button>
-        <Button variant="contained" fullWidth>
+        <Button variant="contained" disabled={product.inStock > 0 ? false : true} fullWidth>
           Купить
         </Button>
       </CardActions>

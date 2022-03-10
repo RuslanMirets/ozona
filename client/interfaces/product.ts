@@ -3,10 +3,11 @@ export interface IProduct {
   title: string;
   price: number;
   description: string;
+  content: string;
   images: IImages[];
   category: string;
   checked: boolean;
-  inStock: boolean;
+  inStock: number;
   sold: number;
 }
 
