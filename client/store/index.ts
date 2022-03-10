@@ -1,3 +1,4 @@
+import { productReducer } from './slices/product';
 import { alertReducer } from './slices/alert';
 import { authReducer } from './slices/auth';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
@@ -8,6 +9,7 @@ export function makeStore() {
     reducer: {
       auth: authReducer,
       alert: alertReducer,
+      product: productReducer,
     },
   });
 }
