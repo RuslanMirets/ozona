@@ -48,9 +48,9 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <AppBar classes={{ root: styles.root }} position="static">
+    <AppBar classes={{ root: styles.header }} position="static">
       <Container>
-        <Toolbar disableGutters>
+        <Toolbar classes={{root: styles.toolbar}} disableGutters>
           <Typography
             variant="h6"
             noWrap
@@ -130,6 +130,9 @@ export const Header: React.FC = () => {
                   className={styles.menuBtn}
                   onClick={handleOpenUserMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}>
+                  <div className={styles.avatar}>
+                    <img src={userData.avatar} alt={userData.avatar} />
+                  </div>
                   {userData.name}
                 </Button>
                 <Menu

@@ -1,17 +1,19 @@
 import { Button } from '@mui/material';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormField } from '../components/FormField';
 import MainLayout from '../layouts/MainLayout';
 import { RegisterFormSchema } from '../utils/validation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useAppDispatch } from '../store/hooks';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { register } from '../store/actions/auth';
+import { useRouter } from 'next/router';
 
 const Register: NextPage = () => {
   const dispatch = useAppDispatch();
+  const { userData } = useAppSelector((state) => state.auth);
 
   const methods = useForm({
     mode: 'onChange',
@@ -21,8 +23,19 @@ const Register: NextPage = () => {
 
   const onSubmit = (userData: any) => {
     dispatch(register(userData));
-    // methods.reset();
+    methods.reset();
   };
+
+  const router = useRouter();
+  useEffect(() => {
+    if (userData) {
+      router.push('/');
+    }
+  }, [userData]);
+
+  if (userData) {
+    return <MainLayout title="Регистрация"></MainLayout>;
+  }
 
   return (
     <MainLayout title="Регистрация">
