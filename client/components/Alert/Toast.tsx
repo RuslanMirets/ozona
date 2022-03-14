@@ -10,13 +10,15 @@ interface IProps {
 export const Toast: React.FC<IProps> = ({ body, severity }) => {
   const dispatch = useAppDispatch();
 
-  const handleShow = () => {
+  const handleShow = (event: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') return;
+
     dispatch(alertSlice.actions.success(''));
     dispatch(alertSlice.actions.errors(''));
   };
 
   return (
-    <Snackbar open autoHideDuration={4000} onClose={handleShow} style={{ bottom: '70px' }}>
+    <Snackbar open autoHideDuration={4000} onClose={handleShow}>
       <Alert onClose={handleShow} severity={severity} sx={{ width: '100%' }}>
         {typeof body === 'string' ? (
           body

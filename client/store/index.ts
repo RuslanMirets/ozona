@@ -1,3 +1,4 @@
+import { cartReducer } from './slices/cart';
 import { productReducer } from './slices/product';
 import { alertReducer } from './slices/alert';
 import { authReducer } from './slices/auth';
@@ -10,6 +11,7 @@ export function makeStore() {
       auth: authReducer,
       alert: alertReducer,
       product: productReducer,
+      cart: cartReducer,
     },
   });
 }

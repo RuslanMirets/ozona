@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Avatar,
   Badge,
   Box,
   Button,
@@ -9,7 +8,6 @@ import {
   Menu,
   MenuItem,
   Toolbar,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
@@ -42,6 +40,7 @@ export const Header: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.auth);
+  const { cartData } = useAppSelector((state) => state.cart);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -50,7 +49,7 @@ export const Header: React.FC = () => {
   return (
     <AppBar classes={{ root: styles.header }} position="static">
       <Container>
-        <Toolbar classes={{root: styles.toolbar}} disableGutters>
+        <Toolbar classes={{ root: styles.toolbar }} disableGutters>
           <Typography
             variant="h6"
             noWrap
@@ -114,7 +113,7 @@ export const Header: React.FC = () => {
               sx={{ my: 2, color: 'white', display: 'block' }}>
               <Link href="/cart">
                 <a>
-                  <Badge badgeContent={99} color="error">
+                  <Badge badgeContent={`${cartData.length}`} color="error">
                     <LocalMallOutlinedIcon />
                   </Badge>
                   Корзина

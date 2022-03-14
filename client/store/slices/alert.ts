@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface IAlert {
+export interface AlertState {
   success?: string | string[];
   errors?: string | string[];
 }
 
-const initialState: IAlert = {
+const initialState: AlertState = {
   success: '',
   errors: '',
 };

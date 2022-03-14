@@ -2,12 +2,21 @@ import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@
 import Link from 'next/link';
 import React from 'react';
 import { IProduct } from '../../interfaces/product';
+import { addToCart } from '../../store/actions/cart';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 interface IProps {
   product: IProduct;
 }
 
 export const ProductItem: React.FC<IProps> = ({ product }) => {
+  const dispatch = useAppDispatch();
+  const { cartData } = useAppSelector((state) => state.cart);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product!, cartData));
+  };
+
   return (
     <Card>
       <Link href={`/product/${product._id}`}>
@@ -50,7 +59,11 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
             <a>Подробнее</a>
           </Link>
         </Button>
-        <Button variant="contained" disabled={product.inStock > 0 ? false : true} fullWidth>
+        <Button
+          variant="contained"
+          disabled={product.inStock > 0 ? false : true}
+          fullWidth
+          onClick={handleAddToCart}>
           Купить
         </Button>
       </CardActions>

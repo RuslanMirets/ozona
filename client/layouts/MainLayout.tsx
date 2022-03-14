@@ -1,7 +1,6 @@
 import { Container } from '@mui/material';
 import Head from 'next/head';
 import { Alert } from '../components/Alert';
-import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 
 interface MainLayoutProps {
@@ -27,7 +26,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, title, description, k
         <main className="main">
           <Container>{children}</Container>
         </main>
-        <Footer />
       </div>
     </>
   );
