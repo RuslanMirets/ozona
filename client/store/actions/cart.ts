@@ -26,3 +26,19 @@ export const addToCart = (product: IProduct, cart: IProduct[]) => async (dispatc
     dispatch(alertSlice.actions.errors('Ошибка при добавления товара в корзину'));
   }
 };
+
+export const decrease = (cartData: IProduct[], id: string) => async (dispatch: AppDispatch) => {
+  const newData = [...cartData];
+  newData.forEach((item) => {
+    if (item._id === id) item.quantity! -= 1;
+  });
+  return dispatch(cartSlice.actions.addToCart(newData));
+};
+
+export const increase = (cartData: IProduct[], id: string) => async (dispatch: AppDispatch) => {
+  const newData = [...cartData];
+  newData.forEach((item) => {
+    if (item._id === id) item.quantity += 1;
+  });
+  return dispatch(cartSlice.actions.addToCart(newData));
+};

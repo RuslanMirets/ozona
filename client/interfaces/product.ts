@@ -9,6 +9,7 @@ export interface IProduct {
   checked: boolean;
   inStock: number;
   sold: number;
+  quantity: number;
 }
 
 interface IImages {

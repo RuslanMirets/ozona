@@ -19,3 +19,7 @@ export const CreateProductFormSchema = yup.object().shape({
   name: yup.string().required('Введите название'),
   price: yup.number().typeError('Цена должна быть числом').required('Введите цену'),
 });
+
+export const ShippingFormSchema = yup.object().shape({
+  address: yup.string().required('Введите адрес'),
+});

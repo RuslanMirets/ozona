@@ -68,3 +68,21 @@ img {
   gap: 20px;
   margin-bottom: 40px;
 }
+
+.cart {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  h2 {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  &__info {
+    flex-basis: 65%;
+    border-bottom: 1px solid #dee2e6;
+  }
+  &__shipping {
+    flex-basis: 35%;
+  }
+}
