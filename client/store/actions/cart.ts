@@ -5,10 +5,10 @@ import { alertSlice } from '../slices/alert';
 
 export const addToCart = (product: IProduct, cart: IProduct[]) => async (dispatch: AppDispatch) => {
   try {
-    if (product.inStock === 0) return dispatch(alertSlice.actions.errors('Товара нет в наличии'));
+    if (product?.inStock === 0) return dispatch(alertSlice.actions.errors('Товара нет в наличии'));
 
     const check = cart.every((item: any) => {
-      return item._id !== product._id;
+      return item._id !== product?._id;
     });
 
     if (!check) {
@@ -25,20 +25,4 @@ export const addToCart = (product: IProduct, cart: IProduct[]) => async (dispatc
   } catch (error) {
     dispatch(alertSlice.actions.errors('Ошибка при добавления товара в корзину'));
   }
-};
-
-export const decrease = (cartData: IProduct[], id: string) => async (dispatch: AppDispatch) => {
-  const newData = [...cartData];
-  newData.forEach((item) => {
-    if (item._id === id) item.quantity! -= 1;
-  });
-  return dispatch(cartSlice.actions.addToCart(newData));
-};
-
-export const increase = (cartData: IProduct[], id: string) => async (dispatch: AppDispatch) => {
-  const newData = [...cartData];
-  newData.forEach((item) => {
-    if (item._id === id) item.quantity += 1;
-  });
-  return dispatch(cartSlice.actions.addToCart(newData));
 };

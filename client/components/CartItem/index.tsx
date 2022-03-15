@@ -4,7 +4,7 @@ import React from 'react';
 import { IProduct } from '../../interfaces/product';
 import styles from './CartItem.module.scss';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { decrease, increase } from '../../store/actions/cart';
+import { DECREMENT, INCREMENT } from '../../store/slices/cart';
 
 interface IProps {
   item: IProduct;
@@ -14,10 +14,10 @@ interface IProps {
 
 export const CartItem: React.FC<IProps> = ({ item, dispatch, cartData }) => {
   const handleDecrease = () => {
-    dispatch(decrease(cartData, item._id));
+    dispatch(DECREMENT(item._id));
   };
   const handleIncrease = () => {
-    dispatch(increase(cartData, item._id));
+    dispatch(INCREMENT(item._id));
   };
 
   return (

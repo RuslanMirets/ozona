@@ -14,7 +14,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
   const { cartData } = useAppSelector((state) => state.cart);
 
   const handleAddToCart = () => {
-    dispatch(addToCart(product!, cartData));
+    dispatch(addToCart(product, cartData));
   };
 
   return (
