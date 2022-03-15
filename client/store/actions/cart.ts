@@ -26,3 +26,12 @@ export const addToCart = (product: IProduct, cart: IProduct[]) => async (dispatc
     dispatch(alertSlice.actions.errors('Ошибка при добавления товара в корзину'));
   }
 };
+
+export const deleteItem = (cartData: IProduct[], id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const newData = cartData.filter((item) => item._id !== id);
+    dispatch(cartSlice.actions.addToCart(newData));
+  } catch (error) {
+    dispatch(alertSlice.actions.errors('Ошибка при удалении товара из корзины'));
+  }
+};

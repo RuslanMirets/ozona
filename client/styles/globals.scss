@@ -80,10 +80,14 @@ img {
 
   &__info {
     flex-basis: 65%;
-    border-bottom: 1px solid #dee2e6;
+    // border-bottom: 1px solid #dee2e6;
     height: 100%;
   }
   &__shipping {
     flex-basis: 35%;
+  }
+
+  .empty-cart {
+    margin: 0 auto;
   }
 }
