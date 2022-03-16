@@ -19,4 +19,14 @@ export class ProductService {
   async findOneById(_id: string): Promise<ProductDocument | null> {
     return await this.productModel.findOne({ _id }).exec();
   }
+
+  async sold(id: string, quantity: number, oldInStock: number, oldSold: number) {
+    return await this.productModel.findOneAndUpdate(
+      { _id: id },
+      {
+        inStock: oldInStock - quantity,
+        sold: quantity + oldSold,
+      },
+    );
+  }
 }
