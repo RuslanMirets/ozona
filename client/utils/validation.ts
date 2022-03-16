@@ -23,3 +23,12 @@ export const CreateProductFormSchema = yup.object().shape({
 export const ShippingFormSchema = yup.object().shape({
   address: yup.string().required('Введите адрес'),
 });
+
+export const UpdateProfileFormSchema = yup.object().shape({
+  name: yup.string().required('Введите имя'),
+  password: yup
+    .string()
+    .min(6, 'Пароль должен быть не менее 6 символов')
+    .required('Введите пароль'),
+  cf_password: yup.string().oneOf([yup.ref('password'), null], 'Пароль не совпадает'),
+});

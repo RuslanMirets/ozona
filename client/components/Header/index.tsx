@@ -149,8 +149,12 @@ export const Header: React.FC = () => {
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">Профиль</Typography>
+                  <MenuItem>
+                    <Link href={`/profile`}>
+                      <a>
+                        <Typography textAlign="center">Профиль</Typography>
+                      </a>
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">Выйти</Typography>

@@ -29,7 +29,7 @@ const Login: NextPage = () => {
   const router = useRouter();
   useEffect(() => {
     if (userData) {
-      router.push('/');
+      router.push('/profile');
     }
   }, [userData]);
 
