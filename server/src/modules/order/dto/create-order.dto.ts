@@ -1,5 +1,4 @@
 export class CreateOrderDto {
-  readonly user: string[];
   readonly address: string;
   readonly phone: string;
   readonly cart: string[];

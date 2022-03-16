@@ -3,7 +3,9 @@ import { Button } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { useAppSelector } from '../../store/hooks';
+import { createOrder } from '../../store/actions/order';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { cartSlice } from '../../store/slices/cart';
 import { ShippingFormSchema } from '../../utils/validation';
 import { FormField } from '../FormField';
 import styles from './ShippingForm.module.scss';
@@ -13,7 +15,9 @@ interface IProps {
 }
 
 export const ShippingForm: React.FC<IProps> = ({ total }) => {
+  const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.auth);
+  const { cartData } = useAppSelector((state) => state.cart);
 
   const methods = useForm({
     mode: 'onChange',
@@ -21,8 +25,15 @@ export const ShippingForm: React.FC<IProps> = ({ total }) => {
     resolver: yupResolver(ShippingFormSchema),
   });
 
-  const onSubmit = (orderData: any) => {
-    console.log(orderData);
+  const onSubmit = async (orderData: any) => {
+    const data = {
+      address: orderData.address,
+      phone: orderData.phone,
+      cart: cartData,
+      total,
+    };
+    dispatch(createOrder(data));
+    dispatch(cartSlice.actions.addToCart([]));
     methods.reset();
   };
 
@@ -34,16 +45,25 @@ export const ShippingForm: React.FC<IProps> = ({ total }) => {
         <div className={styles.total}>
           Всего: <span>{total} р.</span>
         </div>
-        <Link href={userData ? '#' : '/login'}>
-          <a className={styles.btn}>
-            <Button
-              type="submit"
-              variant="contained"
-              disabled={!methods.formState.isValid || methods.formState.isSubmitting}>
-              Продолжить оплату
-            </Button>
-          </a>
-        </Link>
+        {userData ? (
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={!methods.formState.isValid || methods.formState.isSubmitting}>
+            Заказать
+          </Button>
+        ) : (
+          <Link href="/login">
+            <a className={styles.btn}>
+              <Button
+                type="submit"
+                variant="contained"
+                disabled={!methods.formState.isValid || methods.formState.isSubmitting}>
+                Заказать
+              </Button>
+            </a>
+          </Link>
+        )}
       </form>
     </FormProvider>
   );

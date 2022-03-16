@@ -7,8 +7,8 @@ export type OrderDocument = Order & Document;
 
 @Schema({ timestamps: true })
 export class Order {
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
-  user: User[];
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
+  user: string;
 
   @Prop({ required: true })
   address: String;
