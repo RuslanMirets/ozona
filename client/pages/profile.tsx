@@ -5,11 +5,12 @@ import MainLayout from '../layouts/MainLayout';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { Button, IconButton } from '@mui/material';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useFieldArray, useForm } from 'react-hook-form';
 import { FormField } from '../components/FormField';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UpdateProfileFormSchema } from '../utils/validation';
 import { resetPassword } from '../store/actions/user';
+import { userSlice } from '../store/slices/user';
 
 const Profile: NextPage = () => {
   const disptach = useAppDispatch();
@@ -22,8 +23,6 @@ const Profile: NextPage = () => {
     }
   }, [userData]);
 
-  if (!userData) return null;
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClickAvatar = () => {
@@ -34,8 +33,10 @@ const Profile: NextPage = () => {
 
   const methods = useForm({
     defaultValues: {
-      name: userData.name,
-      email: userData.email,
+      name: userData?.name,
+      email: userData?.email,
+      password: '',
+      cf_password: '',
     },
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -43,8 +44,11 @@ const Profile: NextPage = () => {
   });
 
   const handleUpdateProfile = (data: any) => {
-    disptach(resetPassword(data.password));
+    disptach(resetPassword(data));
+    methods.reset({ ...methods.getValues(), password: '', cf_password: '' });
   };
+
+  if (!userData) return null;
 
   return (
     <MainLayout title="Профиль">

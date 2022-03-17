@@ -21,7 +21,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch('resetPassword')
+  @Patch('reset-password')
   resetPassword(@User() userId: string, @Body() dto: ResetPasswordDto) {
     return this.userService.resetPassword(userId, dto);
   }

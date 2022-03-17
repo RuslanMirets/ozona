@@ -1,3 +1,5 @@
+import { userReducer } from './slices/user';
+import { orderReducer } from './slices/order';
 import { cartReducer } from './slices/cart';
 import { productReducer } from './slices/product';
 import { alertReducer } from './slices/alert';
@@ -12,6 +14,8 @@ export function makeStore() {
       alert: alertReducer,
       product: productReducer,
       cart: cartReducer,
+      order: orderReducer,
+      user: userReducer,
     },
   });
 }

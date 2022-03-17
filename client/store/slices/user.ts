@@ -1,5 +1,4 @@
 import { IUser } from './../../interfaces/user';
-import { IProduct } from './../../interfaces/product';
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface ProductState {
@@ -13,11 +12,7 @@ const initialState: ProductState = {
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    resetPassword(state, action) {
-      state.userData = action.payload;
-    },
-  },
+  reducers: {},
 });
 
 export const userReducer = userSlice.reducer;
