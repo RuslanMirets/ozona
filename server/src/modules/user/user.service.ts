@@ -38,14 +38,20 @@ export class UserService {
     return bcrypt.hash(password, 12);
   }
 
-  async updateName(userId: string, dto: UpdateInfoDto): Promise<UserDocument | null> {
-    return await this.userModel.findOneAndUpdate({ _id: userId }, { name: dto.name }).exec();
+  async updateName(userId: string, dto: UpdateInfoDto) {
+    const newUser = await this.userModel
+      .findOneAndUpdate({ _id: userId }, { name: dto.name })
+      .exec();
+    return { name: dto.name, avatar: newUser.avatar, email: newUser.email, role: newUser.role };
   }
 
-  async updateAvatar(userId: string, dto: UpdateInfoDto): Promise<UserDocument | null> {
+  async updateAvatar(userId: string, dto: UpdateInfoDto) {
     if (!dto) {
       throw new NotFoundException('Загрузите изображение');
     }
-    return await this.userModel.findOneAndUpdate({ _id: userId }, { avatar: dto.filename }).exec();
+    const newUser = await this.userModel
+      .findOneAndUpdate({ _id: userId }, { avatar: dto.filename })
+      .exec();
+    return { name: newUser.name, avatar: dto.filename, email: newUser.email, role: newUser.role };
   }
 }
