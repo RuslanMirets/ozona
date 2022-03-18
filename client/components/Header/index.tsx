@@ -11,13 +11,14 @@ import {
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Header.module.scss';
 import MenuIcon from '@mui/icons-material/Menu';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../store/actions/auth';
+import { SERVER } from '../../utils/constants';
 
 export const Header: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -130,10 +131,7 @@ export const Header: React.FC = () => {
                   onClick={handleOpenUserMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}>
                   <div className={styles.avatar}>
-                    <img
-                      src={`http://localhost:5000/upload/avatar/${userData.avatar}`}
-                      alt="avatar"
-                    />
+                    <img src={`${SERVER}/upload/avatar/${userData.avatar}`} alt="avatar" />
                   </div>
                   {userData.name}
                 </Button>

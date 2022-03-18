@@ -13,14 +13,6 @@ export const resetPassword = (password: object) => async (dispatch: AppDispatch)
   }
 };
 
-// export const uploadInfo =
-//   (payload: { name: string; avatar: any }) => async (dispatch: AppDispatch) => {
-//     try {
-//     } catch (error: any) {
-//       dispatch(alertSlice.actions.errors(error.response.data.message));
-//     }
-//   };
-
 export const updateName = (name: object) => async (dispatch: AppDispatch) => {
   try {
     const { ozonaToken } = parseCookies();
@@ -30,13 +22,3 @@ export const updateName = (name: object) => async (dispatch: AppDispatch) => {
     dispatch(alertSlice.actions.errors(error.response.data.message));
   }
 };
-
-// export const updateAvatar = (name: object) => async (dispatch: AppDispatch) => {
-//   try {
-//     const { ozonaToken } = parseCookies();
-//     await patchAPI('user/update-avatar', name, ozonaToken);
-//     dispatch(alertSlice.actions.success('Имя обновлено'));
-//   } catch (error: any) {
-//     dispatch(alertSlice.actions.errors(error.response.data.message));
-//   }
-// };

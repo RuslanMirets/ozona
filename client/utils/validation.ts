@@ -25,10 +25,7 @@ export const ShippingFormSchema = yup.object().shape({
 });
 
 export const UpdateProfileFormSchema = yup.object().shape({
-  name: yup.string().required('Введите имя'),
-  password: yup
-    .string()
-    .min(6, 'Пароль должен быть не менее 6 символов')
-    .required('Введите пароль'),
+  // name: yup.string().required('Введите имя'),
+  password: yup.string().min(6, 'Пароль должен быть не менее 6 символов'),
   cf_password: yup.string().oneOf([yup.ref('password'), null], 'Пароль не совпадает'),
 });

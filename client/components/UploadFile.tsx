@@ -8,7 +8,7 @@ interface IProps {
   id?: string;
 }
 
-export const ImageUpload: React.FC<IProps> = ({ name, hidden, onChange, id }) => {
+export const UploadFile: React.FC<IProps> = ({ name, hidden, onChange, id }) => {
   const { register } = useFormContext();
 
   return <input {...register(name)} type="file" onChange={onChange} hidden={hidden} id={id} />;
