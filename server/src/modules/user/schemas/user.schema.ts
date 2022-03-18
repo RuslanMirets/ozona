@@ -20,7 +20,7 @@ export class User {
   @Prop({ default: false })
   root: Boolean;
 
-  @Prop({ default: 'https://www.pinclipart.com/picdir/big/92-928150_home-2-person-clipart.png' })
+  @Prop({ default: '' })
   avatar: string;
 }
 

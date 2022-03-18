@@ -93,12 +93,16 @@ export const UserInfo: React.FC = () => {
       <h3>{userData?.role === 'user' ? 'Профиль пользователя' : 'Профиль админа'}</h3>
       <FormProvider {...methods}>
         <div className={styles.avatar}>
-          <img
-            src={
-              avatar ? URL.createObjectURL(avatar) : `${SERVER}/upload/avatar/${userData?.avatar}`
-            }
-            alt="avatar"
-          />
+          {userData?.avatar ? (
+            <img
+              src={
+                avatar ? URL.createObjectURL(avatar) : `${SERVER}/upload/avatar/${userData?.avatar}`
+              }
+              alt="avatar"
+            />
+          ) : (
+            <img src="/assets/images/avatar.png" alt="avatar" />
+          )}
           <span>
             <IconButton>
               <PhotoCameraIcon />

@@ -1,3 +1,4 @@
+import { UserService } from 'src/modules/user/user.service';
 import { ProductService } from './../product/product.service';
 import { Model } from 'mongoose';
 import { ORDER_MODEL } from './../../core/constants/index';
@@ -10,6 +11,7 @@ export class OrderService {
   constructor(
     @Inject(ORDER_MODEL) private orderModel: Model<OrderDocument>,
     private readonly productService: ProductService,
+    private readonly userService: UserService,
   ) {}
 
   async create(dto: CreateOrderDto, userId: string): Promise<OrderDocument> {
@@ -27,5 +29,10 @@ export class OrderService {
 
   async findAll() {
     return await this.orderModel.find().exec();
+  }
+
+  async getUserOrders(_id: string) {
+    const user = await this.userService.findOneById(_id);
+    return await this.orderModel.find({ user: user.id }).exec();
   }
 }

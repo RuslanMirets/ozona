@@ -19,4 +19,10 @@ export class OrderController {
   findAll() {
     return this.orderService.findAll();
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('user')
+  getUserOrders(@User() userId: string) {
+    return this.orderService.getUserOrders(userId);
+  }
 }
