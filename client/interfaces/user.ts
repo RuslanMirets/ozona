@@ -9,3 +9,7 @@ export interface IUser {
   role: string;
   root: boolean;
 }
+
+// interface IAvatar {
+//   filename: string;
+// }

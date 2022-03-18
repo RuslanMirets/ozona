@@ -130,7 +130,10 @@ export const Header: React.FC = () => {
                   onClick={handleOpenUserMenu}
                   sx={{ my: 2, color: 'white', display: 'block' }}>
                   <div className={styles.avatar}>
-                    <img src={userData.avatar} alt={userData.avatar} />
+                    <img
+                      src={`http://localhost:5000/upload/avatar/${userData.avatar}`}
+                      alt="avatar"
+                    />
                   </div>
                   {userData.name}
                 </Button>
