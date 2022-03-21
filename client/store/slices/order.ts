@@ -9,7 +9,7 @@ export interface OrderState {
 
 const initialState: OrderState = {
   orderData: null,
-  orders: []
+  orders: [],
 };
 
 export const orderSlice = createSlice({
@@ -22,10 +22,13 @@ export const orderSlice = createSlice({
     getUserOrders(state, action) {
       state.orders = action.payload;
     },
+    getDetailOrder(state, action) {
+      state.orderData = action.payload;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {
-      state.orders = action.payload.order.orders;
+      return { ...state, ...action.payload.order };
     },
   },
 });

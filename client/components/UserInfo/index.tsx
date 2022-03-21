@@ -42,7 +42,7 @@ export const UserInfo: React.FC = () => {
 
   const handleUpdateProfile = (e: FormEvent<HTMLButtonElement>) => {
     // password
-    if (methods.formState.isValid && cf_password.length > 5) {
+    if (!methods.formState.isValid && cf_password.length > 5) {
       dispatch(resetPassword({ password: password }));
       methods.reset({ password: '', cf_password: '' });
       setErrorMessage('');

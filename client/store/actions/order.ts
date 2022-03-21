@@ -25,3 +25,12 @@ export const getUserOrders = (context: any) => async (dispatch: AppDispatch) => 
     dispatch(alertSlice.actions.errors(error.response.data.message));
   }
 };
+
+export const getDetailOrder = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const response = await getAPI(`order/${id}`);
+    dispatch(orderSlice.actions.getDetailOrder(response.data));
+  } catch (error: any) {
+    dispatch(alertSlice.actions.errors('Не удалось загрузить детали заказа'));
+  }
+};

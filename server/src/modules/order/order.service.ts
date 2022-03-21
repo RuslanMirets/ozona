@@ -35,4 +35,8 @@ export class OrderService {
     const user = await this.userService.findOneById(_id);
     return await this.orderModel.find({ user: user.id }).exec();
   }
+
+  async findOneById(_id: string) {
+    return await this.orderModel.findOne({ _id }).populate('user', '-password').exec();
+  }
 }

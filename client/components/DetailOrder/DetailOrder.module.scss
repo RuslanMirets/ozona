@@ -1,0 +1,51 @@
+.root {
+  .backBtn {
+    margin-bottom: 30px;
+  }
+
+  .info {
+    max-width: 650px;
+    margin: 0 auto 30px;
+    h2 {
+      margin-bottom: 30px;
+    }
+    .shipping {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+
+  .orderItems {
+    max-width: 650px;
+    margin: 0 auto;
+    h4 {
+      margin-bottom: 30px;
+    }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      &:last-child {
+        margin-bottom: 20px;
+      }
+      img {
+        display: block;
+        width: 60px;
+        height: 55px;
+      }
+      h5 {
+        font-size: 16px;
+        flex: 1 1 auto;
+        text-transform: uppercase;
+      }
+    }
+    .total {
+      text-align: right;
+      font-size: 22px;
+    }
+  }
+}
