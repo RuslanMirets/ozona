@@ -14,7 +14,7 @@ export class OrderController {
     return this.orderService.create(dto, userId);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.orderService.findAll();

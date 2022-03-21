@@ -25,6 +25,9 @@ export const orderSlice = createSlice({
     getDetailOrder(state, action) {
       state.orderData = action.payload;
     },
+    getOrders(state, action) {
+      state.orders = action.payload;
+    },
   },
   extraReducers: {
     [HYDRATE]: (state, action) => {

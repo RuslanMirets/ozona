@@ -5,7 +5,7 @@ import { UserInfo } from '../components/UserInfo';
 import { UserOrders } from '../components/UserOrders';
 import MainLayout from '../layouts/MainLayout';
 import { wrapper } from '../store';
-import { getUserOrders } from '../store/actions/order';
+import { getOrders, getUserOrders } from '../store/actions/order';
 import { useAppSelector } from '../store/hooks';
 
 const Profile: NextPage = () => {
@@ -33,6 +33,8 @@ const Profile: NextPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
   await store.dispatch(getUserOrders(context));
+  // await store.dispatch(getOrders());
+
   return { props: {} };
 });
 

@@ -1,14 +1,18 @@
 import React from 'react';
 import styles from './DetailOrder.module.scss';
-import { Alert } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import { IOrder } from '../../interfaces/order';
 import Link from 'next/link';
+import { IUser } from '../../interfaces/user';
 
 interface IProps {
   order: IOrder | null;
+  userData: IUser | null;
 }
 
-export const DetailOrder: React.FC<IProps> = ({ order }) => {
+export const DetailOrder: React.FC<IProps> = ({ order, userData }) => {
+  const handleDelivered = (id: string) => {};
+
   return (
     <div className={styles.root}>
       <div className={styles.info}>
@@ -19,8 +23,23 @@ export const DetailOrder: React.FC<IProps> = ({ order }) => {
           <p>Email: {order?.user.email}</p>
           <p>Адрес: {order?.address}</p>
           <p>Телефон: {order?.phone}</p>
-          <Alert severity={order?.delivered ? 'success' : 'error'}>
-            {order?.delivered ? `Доставлен ${order.updatedAt}` : 'Не доставлен'}
+          <Alert
+            severity={order?.delivered ? 'success' : 'error'}
+            style={{ display: 'flex', alignItems: 'center' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                flex: '1 1 auto',
+                justifyContent: 'space-between',
+              }}>
+              {order?.delivered ? `Доставлен ${order.updatedAt}` : 'Не доставлен'}
+              {userData?.role === 'admin' && !order?.delivered && (
+                <Button onClick={() => handleDelivered(order!._id)}>
+                  Отметить как доставленное
+                </Button>
+              )}
+            </div>
           </Alert>
         </div>
       </div>
@@ -45,7 +64,9 @@ export const DetailOrder: React.FC<IProps> = ({ order }) => {
             </div>
           ))}
         </div>
-        <div className={styles.total}>Всего: {order?.total} руб.</div>
+        {userData?.role !== 'admin' && (
+          <div className={styles.total}>Всего: {order?.total} руб.</div>
+        )}
       </div>
     </div>
   );

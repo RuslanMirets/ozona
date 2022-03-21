@@ -19,6 +19,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { logout } from '../../store/actions/auth';
 import { SERVER } from '../../utils/constants';
+import Divider from '@mui/material/Divider';
 
 export const Header: React.FC = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -158,13 +159,39 @@ export const Header: React.FC = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}>
                   <MenuItem>
-                    <Link href={`/profile`}>
+                    <Link href="/profile">
                       <a>
                         <Typography textAlign="center">Профиль</Typography>
                       </a>
                     </Link>
                   </MenuItem>
-                  <MenuItem onClick={handleLogout}>
+                  {userData.role === 'admin' && (
+                    <div style={{paddingBottom: '6px'}}>
+                      <MenuItem>
+                        <Link href="/users">
+                          <a>
+                            <Typography textAlign="center">Пользователи</Typography>
+                          </a>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link href="/create">
+                          <a>
+                            <Typography textAlign="center">Продукты</Typography>
+                          </a>
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link href="/categories">
+                          <a>
+                            <Typography textAlign="center">Категории</Typography>
+                          </a>
+                        </Link>
+                      </MenuItem>
+                    </div>
+                  )}
+                  <Divider variant="middle" />
+                  <MenuItem onClick={handleLogout} style={{marginTop: '6px'}}>
                     <Typography textAlign="center">Выйти</Typography>
                   </MenuItem>
                 </Menu>

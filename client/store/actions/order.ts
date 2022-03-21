@@ -39,3 +39,12 @@ export const getDetailOrder = (id: string) => async (dispatch: AppDispatch) => {
     dispatch(alertSlice.actions.errors('Не удалось загрузить детали заказа'));
   }
 };
+
+export const getOrders = () => async (dispatch: AppDispatch) => {
+  try {
+    const response = await getAPI('order');
+    dispatch(orderSlice.actions.getOrders(response.data));
+  } catch (error: any) {
+    dispatch(alertSlice.actions.errors('Не удалось загрузить детали заказа'));
+  }
+};
