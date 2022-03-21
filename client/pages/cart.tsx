@@ -16,6 +16,8 @@ const Cart: NextPage = () => {
 
   const [total, setTotal] = useState(0);
 
+  const [callback, setCallback] = useState(false);
+
   useEffect(() => {
     const getTotal = () => {
       const response = cartData.reduce((prev: any, item: IProduct) => {
@@ -35,8 +37,8 @@ const Cart: NextPage = () => {
       let newArr: any[] = [];
       const updateCart = async () => {
         for (const item of cartLocal) {
-          const res = await getAPI(`product/${item._id}`);
-          const { _id, title, images, price, inStock, sold } = res.data;
+          const response = await getAPI(`product/${item._id}`);
+          const { _id, title, images, price, inStock, sold } = response.data;
           if (inStock > 0) {
             newArr.push({
               _id,
@@ -53,7 +55,7 @@ const Cart: NextPage = () => {
       };
       updateCart();
     }
-  }, []);
+  }, [callback]);
 
   const [openModal, setOpenModal] = useState(false);
   const handleToggleModal = () => {
@@ -89,7 +91,7 @@ const Cart: NextPage = () => {
         </div>
         <div className="cart__shipping">
           <h2>Доставка</h2>
-          <ShippingForm total={total} />
+          <ShippingForm total={total} callback={callback} setCallback={setCallback} />
         </div>
       </div>
       <CartItemsModal dispatch={dispatch} open={openModal} onClose={handleToggleModal} />

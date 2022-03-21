@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 import styles from './DetailOrder.module.scss';
-import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import { Alert, Button } from '@mui/material';
+import { Alert } from '@mui/material';
 import { IOrder } from '../../interfaces/order';
 import Link from 'next/link';
 
@@ -11,15 +9,8 @@ interface IProps {
 }
 
 export const DetailOrder: React.FC<IProps> = ({ order }) => {
-  const router = useRouter();
-
   return (
     <div className={styles.root}>
-      <div className={styles.backBtn}>
-        <Button onClick={() => router.back()}>
-          <ArrowBackOutlinedIcon /> Назад
-        </Button>
-      </div>
       <div className={styles.info}>
         <h2>Заказ № {order?._id}</h2>
         <div className={styles.shipping}>

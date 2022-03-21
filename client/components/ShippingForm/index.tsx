@@ -5,16 +5,20 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { createOrder } from '../../store/actions/order';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { alertSlice } from '../../store/slices/alert';
 import { cartSlice } from '../../store/slices/cart';
+import { getAPI } from '../../utils/fetchData';
 import { ShippingFormSchema } from '../../utils/validation';
 import { FormField } from '../FormField';
 import styles from './ShippingForm.module.scss';
 
 interface IProps {
   total: number;
+  callback: any;
+  setCallback: any;
 }
 
-export const ShippingForm: React.FC<IProps> = ({ total }) => {
+export const ShippingForm: React.FC<IProps> = ({ total, callback, setCallback }) => {
   const dispatch = useAppDispatch();
   const { userData } = useAppSelector((state) => state.auth);
   const { cartData } = useAppSelector((state) => state.cart);
@@ -26,13 +30,28 @@ export const ShippingForm: React.FC<IProps> = ({ total }) => {
   });
 
   const onSubmit = async (orderData: any) => {
-    const data = {
+    let newCart = [];
+    for (const item of cartData) {
+      const response = await getAPI(`product/${item._id}`);
+      const { inStock } = response.data;
+      if (inStock - item.quantity >= 0) {
+        newCart.push(item);
+      }
+    }
+    if (newCart.length < cartData.length) {
+      setCallback(!callback);
+      return dispatch(
+        alertSlice.actions.errors('Товара нет на складе или его недостаточное количество'),
+      );
+    }
+    const newOrder = {
+      id: orderData._id,
       address: orderData.address,
       phone: orderData.phone,
       cart: cartData,
       total,
     };
-    dispatch(createOrder(data));
+    dispatch(createOrder(newOrder as any));
     dispatch(cartSlice.actions.addToCart([]));
     methods.reset();
   };

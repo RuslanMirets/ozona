@@ -32,7 +32,7 @@ export const UserOrders: React.FC<IParams> = ({ orders }) => {
                 <TableCell>Дата</TableCell>
                 <TableCell>Сумма</TableCell>
                 <TableCell>Доставлено</TableCell>
-                <TableCell>Действие</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -40,7 +40,13 @@ export const UserOrders: React.FC<IParams> = ({ orders }) => {
                 <TableRow
                   key={order._id}
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell>{order._id}</TableCell>
+                  <TableCell>
+                    <Link href={`/order/${order._id}`}>
+                      <a>
+                        <Button>{order._id}</Button>
+                      </a>
+                    </Link>
+                  </TableCell>
                   <TableCell>{new Date(order.createdAt).toLocaleDateString()}</TableCell>
                   <TableCell>{order.total} руб.</TableCell>
                   <TableCell>
@@ -53,7 +59,7 @@ export const UserOrders: React.FC<IParams> = ({ orders }) => {
                   <TableCell>
                     <Link href={`/order/${order._id}`}>
                       <a>
-                        <Button>Подробнее</Button>
+                        <Button variant="outlined">Подробнее</Button>
                       </a>
                     </Link>
                   </TableCell>
