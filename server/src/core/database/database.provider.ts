@@ -1,3 +1,4 @@
+import { Role } from './../../modules/role/models/role.model';
 import { Sequelize } from 'sequelize-typescript';
 import { User } from 'src/modules/user/models/user.model';
 import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
@@ -22,7 +23,7 @@ export const databaseProvider = [
           config = databaseConfig.development;
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([User]);
+      sequelize.addModels([User, Role]);
       await sequelize.sync();
       return sequelize;
     },
