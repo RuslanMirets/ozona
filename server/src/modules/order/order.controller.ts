@@ -1,6 +1,6 @@
 import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderService } from './order.service';
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
 import { User } from 'src/core/decorators/user.decorator';
 
@@ -14,7 +14,7 @@ export class OrderController {
     return this.orderService.create(dto, userId);
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.orderService.findAll();
@@ -29,5 +29,11 @@ export class OrderController {
   @Get(':id')
   findOneById(@Param('id') id: string) {
     return this.orderService.findOneById(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('delivered/:id')
+  deliveredOrder(@Param('id') id: string) {
+    return this.orderService.deliveredOrder(id);
   }
 }

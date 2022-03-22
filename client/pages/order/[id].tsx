@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import MainLayout from '../../layouts/MainLayout';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getDetailOrder } from '../../store/actions/order';
 import { wrapper } from '../../store';
 import { ParsedUrlQuery } from 'querystring';
@@ -15,6 +15,7 @@ interface IParams extends ParsedUrlQuery {
 }
 
 const Order: NextPage = () => {
+  const dispatch = useAppDispatch();
   const { orderData } = useAppSelector((state) => state.order);
   const { userData } = useAppSelector((state) => state.auth);
 
@@ -34,7 +35,7 @@ const Order: NextPage = () => {
           <ArrowBackOutlinedIcon /> Назад
         </Button>
       </div>
-      <DetailOrder order={orderData} userData={userData} />
+      <DetailOrder order={orderData} userData={userData} dispatch={dispatch} />
     </MainLayout>
   );
 };

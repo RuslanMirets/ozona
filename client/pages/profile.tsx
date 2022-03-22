@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { parseCookies } from 'nookies';
 import React, { useEffect } from 'react';
 import { UserInfo } from '../components/UserInfo';
 import { UserOrders } from '../components/UserOrders';
@@ -7,6 +8,7 @@ import MainLayout from '../layouts/MainLayout';
 import { wrapper } from '../store';
 import { getOrders, getUserOrders } from '../store/actions/order';
 import { useAppSelector } from '../store/hooks';
+import { getAPI } from '../utils/fetchData';
 
 const Profile: NextPage = () => {
   const { userData } = useAppSelector((state) => state.auth);
@@ -32,8 +34,13 @@ const Profile: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
-  await store.dispatch(getUserOrders(context));
-  // await store.dispatch(getOrders());
+  const { ozonaToken } = parseCookies(context);
+  const { data } = await getAPI('user/profile', ozonaToken);
+  if (data.role === 'user') {
+    await store.dispatch(getUserOrders(context));
+  } else if (data.role === 'admin') {
+    await store.dispatch(getOrders(context));
+  }
 
   return { props: {} };
 });

@@ -4,14 +4,18 @@ import { Alert, Button } from '@mui/material';
 import { IOrder } from '../../interfaces/order';
 import Link from 'next/link';
 import { IUser } from '../../interfaces/user';
+import { deliveredOrder } from '../../store/actions/order';
 
 interface IProps {
   order: IOrder | null;
   userData: IUser | null;
+  dispatch: any;
 }
 
-export const DetailOrder: React.FC<IProps> = ({ order, userData }) => {
-  const handleDelivered = (id: string) => {};
+export const DetailOrder: React.FC<IProps> = ({ order, userData, dispatch }) => {
+  const handleDelivered = (order: IOrder) => {
+    dispatch(deliveredOrder(order._id));
+  };
 
   return (
     <div className={styles.root}>
@@ -24,22 +28,13 @@ export const DetailOrder: React.FC<IProps> = ({ order, userData }) => {
           <p>Адрес: {order?.address}</p>
           <p>Телефон: {order?.phone}</p>
           <Alert
+            classes={{ message: styles.message }}
             severity={order?.delivered ? 'success' : 'error'}
             style={{ display: 'flex', alignItems: 'center' }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                flex: '1 1 auto',
-                justifyContent: 'space-between',
-              }}>
-              {order?.delivered ? `Доставлен ${order.updatedAt}` : 'Не доставлен'}
-              {userData?.role === 'admin' && !order?.delivered && (
-                <Button onClick={() => handleDelivered(order!._id)}>
-                  Отметить как доставленное
-                </Button>
-              )}
-            </div>
+            {order?.delivered ? `Доставлен ${order.updatedAt}` : 'Не доставлен'}
+            {userData?.role === 'admin' && !order?.delivered && (
+              <Button onClick={() => handleDelivered(order!)}>Отметить как доставленное</Button>
+            )}
           </Alert>
         </div>
       </div>

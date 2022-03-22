@@ -39,4 +39,11 @@ export class OrderService {
   async findOneById(_id: string) {
     return await this.orderModel.findOne({ _id }).populate('user', '-password').exec();
   }
+
+  async deliveredOrder(id: string) {
+    await this.orderModel.findOneAndUpdate({ _id: id }, { delivered: true }).exec();
+    return { delivered: true };
+  }
+
+  // .findOneAndUpdate({ _id: userId }, { avatar: dto.filename })
 }

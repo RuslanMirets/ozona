@@ -1,6 +1,6 @@
 import { orderSlice } from './../slices/order';
 import { IOrder } from './../../interfaces/order';
-import { postAPI, getAPI } from './../../utils/fetchData';
+import { postAPI, getAPI, patchAPI } from './../../utils/fetchData';
 import { alertSlice } from './../slices/alert';
 import { AppDispatch } from '..';
 import { parseCookies } from 'nookies';
@@ -40,11 +40,22 @@ export const getDetailOrder = (id: string) => async (dispatch: AppDispatch) => {
   }
 };
 
-export const getOrders = () => async (dispatch: AppDispatch) => {
+export const getOrders = (context: any) => async (dispatch: AppDispatch) => {
   try {
-    const response = await getAPI('order');
+    const { ozonaToken } = parseCookies(context);
+    const response = await getAPI('order', ozonaToken);
     dispatch(orderSlice.actions.getOrders(response.data));
   } catch (error: any) {
     dispatch(alertSlice.actions.errors('Не удалось загрузить детали заказа'));
+  }
+};
+
+export const deliveredOrder = (id: string) => async (dispatch: AppDispatch) => {
+  try {
+    const { ozonaToken } = parseCookies();
+    const response = await patchAPI(`order/delivered/${id}`, null as any, ozonaToken);
+    dispatch(orderSlice.actions.deliveredOrder(response.data));
+  } catch (error: any) {
+    dispatch(alertSlice.actions.errors(error.response.data.message));
   }
 };
