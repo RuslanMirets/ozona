@@ -10,6 +10,9 @@ export class RoleService {
   async create(dto: CreateRoleDto) {
     return await this.roleRepository.create(dto);
   }
+  async findOneByValue(value: string): Promise<Role> {
+    return await this.roleRepository.findOne<Role>({ where: { value } });
+  }
 
   async findAll() {
     return await this.roleRepository.findAll();

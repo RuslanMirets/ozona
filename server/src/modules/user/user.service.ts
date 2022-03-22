@@ -12,14 +12,14 @@ export class UserService {
   }
 
   async findOneByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { email } });
+    return await this.userRepository.findOne<User>({ where: { email }, include: { all: true } });
   }
 
   async findOneById(id: string): Promise<User> {
-    return await this.userRepository.findOne<User>({ where: { id } });
+    return await this.userRepository.findOne<User>({ where: { id }, include: { all: true } });
   }
 
   async findAll() {
-    return await this.userRepository.findAll();
+    return await this.userRepository.findAll({ include: { all: true } });
   }
 }
