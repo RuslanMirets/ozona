@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
     setAnchorElUser(null);
   };
 
-  const userData = true;
+  const userData = false;
   const avatar = false;
 
   return (
@@ -50,6 +50,11 @@ export const Header: React.FC = () => {
             <Link href="#">
               <a>
                 <Button>О нас</Button>
+              </a>
+            </Link>
+            <Link href="/users">
+              <a>
+                <Button>Пользователи</Button>
               </a>
             </Link>
           </div>

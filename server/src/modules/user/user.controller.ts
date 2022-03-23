@@ -8,8 +8,8 @@ import { RoleGuard } from 'src/core/guards/role.guard';
 export class UserController {
   constructor(private userService: UserService) {}
 
-  @Role('ADMIN')
-  @UseGuards(JwtAuthGuard, RoleGuard)
+  // @Role('ADMIN')
+  // @UseGuards(JwtAuthGuard, RoleGuard)
   @Get()
   findAll() {
     return this.userService.findAll();

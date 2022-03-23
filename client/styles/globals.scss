@@ -33,3 +33,18 @@ button {
   left: 0;
   text-align: center;
 }
+
+.auth {
+  max-width: 550px;
+  margin: 80px auto 0;
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

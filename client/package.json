@@ -11,12 +11,20 @@
   "dependencies": {
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.8.8",
     "@mui/icons-material": "^5.5.1",
     "@mui/material": "^5.5.2",
+    "@reduxjs/toolkit": "^1.8.0",
+    "axios": "^0.26.1",
     "next": "12.1.0",
+    "next-redux-wrapper": "^7.0.5",
+    "nookies": "^2.5.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "sass": "^1.49.9"
+    "react-hook-form": "^7.28.1",
+    "react-redux": "^7.2.6",
+    "sass": "^1.49.9",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.22",
