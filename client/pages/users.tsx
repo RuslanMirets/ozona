@@ -20,18 +20,22 @@ const Users: NextPage<IProps> = ({ users }) => {
   );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (ctx: any) => {
   try {
+    const userData = await Api(ctx).user.getProfile();
+    if (userData.role[0].value !== 'ADMIN') {
+      ctx.res?.writeHead(302, {
+        Location: '/403',
+      });
+      ctx.res?.end();
+    }
+
     const users = await Api().user.getAll();
-    return {
-      props: { users },
-    };
+    return { props: { users } };
   } catch (error) {
     console.log(error);
   }
-  return {
-    props: { users: null },
-  };
+  return { props: { users: null } };
 };
 
 export default Users;

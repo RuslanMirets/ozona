@@ -18,16 +18,19 @@ export const Api = (ctx?: NextPageContext | GetServerSidePropsContext): ApiRetur
     },
   });
 
-  const apis = {
-    user: UserApi,
+  return {
+    user: UserApi(instance),
   };
 
-  const result = Object.entries(apis).reduce((prev, [key, f]) => {
-    return {
-      ...prev,
-      [key]: f(instance),
-    };
-  }, {} as ApiReturnType);
-
-  return result;
+  // Correct
+  // const apis = {
+  //   user: UserApi,
+  // };
+  // const result = Object.entries(apis).reduce((prev, [key, f]) => {
+  //   return {
+  //     ...prev,
+  //     [key]: f(instance),
+  //   };
+  // }, {} as ApiReturnType);
+  // return result;
 };

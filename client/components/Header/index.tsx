@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   AppBar,
   Container,
@@ -14,6 +14,9 @@ import Link from 'next/link';
 import styles from './Header.module.scss';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { logout, selectUserData } from '../../redux/slices/user';
+import { destroyCookie } from 'nookies';
 
 export const Header: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -26,8 +29,15 @@ export const Header: React.FC = () => {
     setAnchorElUser(null);
   };
 
-  const userData = false;
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector(selectUserData);
   const avatar = false;
+
+  const handleLogout = () => {
+    destroyCookie(null, 'ozonaToken', null);
+    dispatch(logout());
+    setAnchorElUser(null);
+  };
 
   return (
     <AppBar classes={{ root: styles.root }} position="static">
@@ -67,7 +77,7 @@ export const Header: React.FC = () => {
                     src={avatar ? '' : '/assets/images/avatar.png'}
                     alt="Avatar"
                   />
-                  Username
+                  {userData.name}
                 </Button>
                 <Menu
                   sx={{ mt: '45px' }}
@@ -91,7 +101,7 @@ export const Header: React.FC = () => {
                     </Link>
                   </MenuItem>
                   <Divider variant="middle" />
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">Выйти</Typography>
                   </MenuItem>
                 </Menu>

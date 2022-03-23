@@ -4,7 +4,7 @@ import MainLayout from '../layouts/MainLayout';
 const NotFound = () => {
   return (
     <MainLayout title="404">
-      <div className="not-found">404 | Not Found</div>
+      <div className="errors-page">404 | Not Found</div>
     </MainLayout>
   );
 };
