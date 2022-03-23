@@ -1,0 +1,25 @@
+.root {
+  margin-bottom: 40px;
+
+  .toolbar {
+    min-height: 60px;
+    gap: 20px;
+
+    button {
+      color: #ffffff !important;
+    }
+
+    .menu {
+      flex: 1 1 auto;
+      ul {
+        display: flex;
+      }
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+  }
+}
