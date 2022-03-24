@@ -1,7 +1,9 @@
+import { NotifyAction, NotifyActionTypes } from './../../types/notify';
 import { getAPI, postAPI } from './../../utils/fetchData';
 import { Dispatch } from 'react';
 import { UserAction, UserActionTypes, IUser } from './../../types/user';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
+import { responseSymbol } from 'next/dist/server/web/spec-compliant/fetch-event';
 
 export const fetchUsers = () => {
   return async (dispatch: Dispatch<UserAction>) => {
@@ -15,7 +17,7 @@ export const fetchUsers = () => {
 };
 
 export const login = (data: IUser) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+  return async (dispatch: Dispatch<UserAction | NotifyAction>) => {
     try {
       const response = await postAPI('auth/login', data);
       setCookie(null, 'ozonaToken', response.data.token, {
@@ -23,19 +25,27 @@ export const login = (data: IUser) => {
         path: '/',
       });
       dispatch({ type: UserActionTypes.LOGIN, payload: response.data });
-    } catch (error) {
-      console.log(error);
+      dispatch({ type: NotifyActionTypes.NOTIFY, payload: { success: 'Успешный вход' } });
+    } catch (error: any) {
+      dispatch({
+        type: NotifyActionTypes.NOTIFY,
+        payload: { errors: error.response.data.message },
+      });
     }
   };
 };
 
 export const register = (data: IUser) => {
-  return async (dispatch: Dispatch<UserAction>) => {
+  return async (dispatch: Dispatch<UserAction | NotifyAction>) => {
     try {
       const response = await postAPI('auth/register', data);
       dispatch({ type: UserActionTypes.REGISTER, payload: response.data });
-    } catch (error) {
-      console.log(error);
+      dispatch({ type: NotifyActionTypes.NOTIFY, payload: { success: 'Успешная регистрация' } });
+    } catch (error: any) {
+      dispatch({
+        type: NotifyActionTypes.NOTIFY,
+        payload: { errors: error.response.data.message },
+      });
     }
   };
 };
