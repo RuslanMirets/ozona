@@ -20,7 +20,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
   return (
     <Card>
       <CardActionArea>
-        <Link href="#">
+        <Link href={`/product/${product.id}`}>
           <a>
             <CardMedia
               sx={{ objectPosition: '0 30%' }}
@@ -34,7 +34,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
       </CardActionArea>
       <CardContent>
         <Typography sx={{ textTransform: 'capitalize' }} gutterBottom variant="h5" component="div">
-          <Link href="#">
+          <Link href={`/product/${product.id}`}>
             <a>{product.title}</a>
           </Link>
         </Typography>
@@ -55,7 +55,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
       </CardContent>
       <CardActions>
         <Button variant="outlined" fullWidth>
-          <Link href="#">
+          <Link href={`/product/${product.id}`}>
             <a>Подробнее</a>
           </Link>
         </Button>

@@ -1,6 +1,6 @@
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductService } from './product.service';
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('product')
 export class ProductController {
@@ -14,5 +14,10 @@ export class ProductController {
   @Get()
   findAll() {
     return this.productService.findAll();
+  }
+
+  @Get(':id')
+  findOneById(@Param('id') id: string) {
+    return this.productService.findOneById(id);
   }
 }

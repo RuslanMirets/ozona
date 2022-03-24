@@ -14,4 +14,8 @@ export class ProductService {
   async findAll() {
     return await this.productRepository.findAll({ include: { all: true } });
   }
+
+  async findOneById(id: string) {
+    return await this.productRepository.findOne({ where: { id } });
+  }
 }
