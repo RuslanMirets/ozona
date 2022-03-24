@@ -29,6 +29,17 @@ export const login = (data: IUser) => {
   };
 };
 
+export const register = (data: IUser) => {
+  return async (dispatch: Dispatch<UserAction>) => {
+    try {
+      const response = await postAPI('auth/register', data);
+      dispatch({ type: UserActionTypes.REGISTER, payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const logout = () => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {

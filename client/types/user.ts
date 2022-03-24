@@ -14,11 +14,13 @@ export interface IUser {
 export interface UserState {
   users: IUser[];
   userData: IUser | null;
+  registerData: IUser | null;
 }
 
 export enum UserActionTypes {
   FETCH_USERS = 'FETCH_USERS',
   LOGIN = 'LOGIN',
+  REGISTER = 'REGISTER',
   LOGOUT = 'LOGOUT',
 }
 
@@ -30,8 +32,12 @@ interface LoginAction {
   type: UserActionTypes.LOGIN;
   payload: IUser;
 }
+interface RegisterAction {
+  type: UserActionTypes.REGISTER;
+  payload: IUser;
+}
 interface LogoutAction {
   type: UserActionTypes.LOGOUT;
 }
 
-export type UserAction = FetchUsersAction | LoginAction | LogoutAction;
+export type UserAction = FetchUsersAction | LoginAction | RegisterAction | LogoutAction;

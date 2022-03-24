@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import React, { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { LoginFormSchema } from '../utils/validations';
+import { RegisterFormSchema } from '../utils/validations';
 import { Button, Typography } from '@mui/material';
 import Link from 'next/link';
 import { FormField } from '../components/FormField';
@@ -11,18 +11,19 @@ import { useActions } from '../hooks/useActions';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useRouter } from 'next/router';
 
-const Login: NextPage = () => {
-  const { login } = useActions();
+const Register: NextPage = () => {
+  const { register } = useActions();
   const { userData } = useAppSelector((state) => state.user);
 
   const methods = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
-    resolver: yupResolver(LoginFormSchema),
+    resolver: yupResolver(RegisterFormSchema),
   });
 
-  const onSubmit = (userData: any) => {
-    login(userData);
+  const onSubmit = (registerData: any) => {
+    register(registerData);
+    methods.reset();
   };
 
   const router = useRouter();
@@ -30,26 +31,27 @@ const Login: NextPage = () => {
     userData && router.push('/');
   }, [userData]);
 
-  if (userData) return <MainLayout title="Авторизация"></MainLayout>;
+  if (userData) return <MainLayout title="Регистрация"></MainLayout>;
 
   return (
-    <MainLayout title="Авторизация">
+    <MainLayout title="Регистрация">
       <div className="auth">
         <Typography variant="h4" component="h4">
-          Авторизация
+          Регистрация
         </Typography>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <FormField type="text" label="Имя" name="name" />
             <FormField type="email" label="Email" name="email" />
             <FormField type="password" label="Пароль" name="password" />
             <Button type="submit" variant="contained" disabled={methods.formState.isSubmitting}>
               Войти
             </Button>
             <div>
-              У вас нет аккаунта?
+              Есть аккаунта?
               <Button variant="text">
-                <Link href="/register">
-                  <a>Зарегистрироваться</a>
+                <Link href="/login">
+                  <a>Войти</a>
                 </Link>
               </Button>
             </div>
@@ -60,4 +62,4 @@ const Login: NextPage = () => {
   );
 };
 
-export default Login;
+export default Register;

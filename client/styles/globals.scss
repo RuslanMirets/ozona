@@ -27,6 +27,14 @@ li {
   list-style: none;
 }
 
+.error-page {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 40%;
+  left: 0;
+}
+
 .auth {
   width: 100%;
   max-width: 550px;
