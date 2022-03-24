@@ -1,4 +1,4 @@
-import { Button, CardActionArea } from '@mui/material';
+import { Button, CardActionArea, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { IProduct } from '../../types/product';
 import styles from './ProductDetail.module.scss';
@@ -32,17 +32,27 @@ export const ProductDetail: React.FC<IProps> = ({ product }) => {
         </div>
       </div>
       <div className={styles.content}>
-        <h1>{product?.title}</h1>
-        <div className={styles.price}>{product?.price} руб.</div>
+        <Typography variant="h4" component="h4">
+          {product?.title}
+        </Typography>
+        <Typography className={styles.price} variant="h5" component="div">
+          {product?.price} руб.
+        </Typography>
         <div className={styles.count}>
           {product!.inStock > 0 ? (
-            <div>В наличии: {product?.inStock}</div>
+            <Typography variant="subtitle1" component="div">
+              В наличии: {product?.inStock}
+            </Typography>
           ) : (
-            <div>Нет в наличии</div>
+            <Typography variant="subtitle1" component="div">
+              Нет в наличии
+            </Typography>
           )}
           <div>Продано: {product?.sold}</div>
         </div>
-        <div className={styles.description}>{product?.description}</div>
+        <Typography className={styles.description} variant="body1" component="div">
+          {product?.description}
+        </Typography>
         <Button variant="contained" disabled={product!.inStock > 0 ? false : true}>
           Купить
         </Button>

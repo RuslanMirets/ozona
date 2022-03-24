@@ -46,24 +46,17 @@
     flex-direction: column;
     gap: 15px;
     flex-basis: 50%;
-    h1 {
-      font-weight: 500;
-      font-size: 32px;
-      line-height: 38px;
+    h4 {
       text-transform: uppercase;
     }
 
     .price {
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
       color: #dc143c;
     }
 
     .count {
       display: flex;
       justify-content: space-between;
-      font-weight: 500;
       color: #dc143c;
     }
 
