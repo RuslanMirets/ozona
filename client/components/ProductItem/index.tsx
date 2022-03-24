@@ -23,6 +23,7 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
         <Link href="#">
           <a>
             <CardMedia
+              sx={{ objectPosition: '0 30%' }}
               component="img"
               alt={product.images[0].url}
               height="200"
@@ -32,8 +33,10 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
         </Link>
       </CardActionArea>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {product.title}
+        <Typography sx={{ textTransform: 'capitalize' }} gutterBottom variant="h5" component="div">
+          <Link href="#">
+            <a>{product.title}</a>
+          </Link>
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
           <Typography variant="body1" color="crimson">
@@ -43,7 +46,10 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
             В наличии: {product.inStock}
           </Typography>
         </Box>
-        <Typography variant="body2" color="text.secondary">
+        <Typography
+          sx={{ height: '100px', overflow: 'hidden' }}
+          variant="body2"
+          color="text.secondary">
           {product.description}
         </Typography>
       </CardContent>
