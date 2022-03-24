@@ -12,8 +12,8 @@ export class AuthService {
     private readonly roleService: RoleService,
   ) {}
 
-  async validateUser(username: string, pass: string) {
-    const user = await this.userService.findOneByEmail(username);
+  async validateUser(email: string, pass: string) {
+    const user = await this.userService.findOneByEmail(email);
     if (!user) {
       return null;
     }
@@ -29,7 +29,8 @@ export class AuthService {
 
   public async login(user) {
     const token = await this.generateToken(user);
-    return { user, token };
+    const { password, ...userData } = user;
+    return { ...userData, token };
   }
 
   public async register(user) {
@@ -46,6 +47,19 @@ export class AuthService {
 
     return { user: result, token };
   }
+
+  // public async register(user) {
+  //   const pass = await this.hashPassword(user.password);
+
+  //   const newUser = await this.userService.create({ ...user, password: pass });
+
+  //   const role = await this.roleService.findOneByValue('USER');
+  //   await newUser.$set('role', role.id);
+
+  //   const token = await this.generateToken(user);
+
+  //   return { ...user, token };
+  // }
 
   private async generateToken(user) {
     const token = await this.jwtService.signAsync(user);

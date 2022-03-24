@@ -15,6 +15,8 @@ import React, { useState } from 'react';
 import styles from './Header.module.scss';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useActions } from '../../hooks/useActions';
 
 export const Header: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -26,8 +28,15 @@ export const Header: React.FC = () => {
   };
 
   const avatar = true;
-  const isAuth = false;
   const isAdmin = false;
+
+  const { logout } = useActions();
+  const { userData } = useAppSelector((state) => state.user);
+
+  const handleLogout = () => {
+    logout();
+    setAnchorElUser(null);
+  };
 
   return (
     <AppBar classes={{ root: styles.root }} position="static">
@@ -58,11 +67,11 @@ export const Header: React.FC = () => {
                 <a>Корзина</a>
               </Link>
             </Button>
-            {isAuth ? (
+            {userData ? (
               <>
                 <Button onClick={handleOpenUserMenu}>
                   <Avatar src={avatar ? '' : ''} alt="Avatar" sx={{ marginRight: '10px' }} />
-                  USERNAME
+                  {userData.name}
                 </Button>
                 <Menu
                   sx={{ mt: '40px' }}
@@ -104,14 +113,14 @@ export const Header: React.FC = () => {
                     </>
                   )}
                   <Divider variant="middle" />
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={handleLogout}>
                     <Typography textAlign="center">Выйти</Typography>
                   </MenuItem>
                 </Menu>
               </>
             ) : (
               <Button startIcon={<AccountCircleOutlinedIcon />}>
-                <Link href="#">
+                <Link href="/login">
                   <a>Войти</a>
                 </Link>
               </Button>

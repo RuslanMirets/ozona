@@ -25,10 +25,6 @@ const Users: NextPage = () => {
   );
 };
 
-// export const getServerSideProps = wrapper.getServerSideProps(async({}) => {
-
-// })
-
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch as NextThunkDispatch;
   await dispatch(fetchUsers());
