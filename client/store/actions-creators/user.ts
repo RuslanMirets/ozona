@@ -3,7 +3,6 @@ import { getAPI, postAPI } from './../../utils/fetchData';
 import { Dispatch } from 'react';
 import { UserAction, UserActionTypes, IUser } from './../../types/user';
 import { setCookie, parseCookies, destroyCookie } from 'nookies';
-import { responseSymbol } from 'next/dist/server/web/spec-compliant/fetch-event';
 
 export const fetchUsers = () => {
   return async (dispatch: Dispatch<UserAction>) => {

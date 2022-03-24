@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
           </Link>
           <Box className={styles.menu}>
             <Button>
-              <Link href="#">
+              <Link href="/catalog">
                 <a>Каталог</a>
               </Link>
             </Button>
