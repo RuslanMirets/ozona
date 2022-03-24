@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
               </Link>
             </Button>
             <Button>
-              <Link href="#">
+              <Link href="/users">
                 <a>Пользователи</a>
               </Link>
             </Button>
