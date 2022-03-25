@@ -1,3 +1,4 @@
+import { cartReducer } from './cart';
 import { productReducer } from './product';
 import { notifyReducer } from './notify';
 import { userReducer } from './user';
@@ -8,6 +9,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   notify: notifyReducer,
   product: productReducer,
+  cart: cartReducer,
 });
 
 export const reducer = (state: any, action: any) => {

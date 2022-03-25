@@ -1,10 +1,12 @@
 import {
   AppBar,
   Avatar,
+  Badge,
   Box,
   Button,
   Container,
   Divider,
+  dividerClasses,
   Menu,
   MenuItem,
   Toolbar,
@@ -32,6 +34,7 @@ export const Header: React.FC = () => {
 
   const { logout } = useActions();
   const { userData } = useAppSelector((state) => state.user);
+  const { cartData } = useAppSelector((state) => state.cart);
 
   const handleLogout = () => {
     logout();
@@ -62,8 +65,13 @@ export const Header: React.FC = () => {
             </Button>
           </Box>
           <Box className={styles.actions}>
-            <Button startIcon={<LocalMallOutlinedIcon />}>
-              <Link href="#">
+            <Button
+              startIcon={
+                <Badge badgeContent={`${cartData.length}`} color="error">
+                  <LocalMallOutlinedIcon />
+                </Badge>
+              }>
+              <Link href="/cart">
                 <a>Корзина</a>
               </Link>
             </Button>

@@ -1,10 +1,16 @@
 import '../styles/globals.scss';
-import { FC } from 'react';
+import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { NextThunkDispatch, wrapper } from '../store';
 import { getProfile } from '../store/actions-creators/user';
+import { useAppSelector } from '../hooks/useAppSelector';
 
 function App({ Component, pageProps }: AppProps) {
+  const { cartData } = useAppSelector((state) => state.cart);
+  useEffect(() => {
+    localStorage.setItem('__next__cart__ozona', JSON.stringify(cartData));
+  }, [cartData]);
+
   return <Component {...pageProps} />;
 }
 

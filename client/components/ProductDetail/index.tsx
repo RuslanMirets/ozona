@@ -3,17 +3,26 @@ import React, { useState } from 'react';
 import { IProduct } from '../../types/product';
 import styles from './ProductDetail.module.scss';
 import classnames from 'classnames';
+import { useActions } from '../../hooks/useActions';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 interface IProps {
   product: IProduct;
 }
 
 export const ProductDetail: React.FC<IProps> = ({ product }) => {
+  const { addToCart } = useActions();
+  const { cartData } = useAppSelector((state) => state.cart);
+
   const [tab, setTab] = useState(0);
 
   const isActive = (index: any) => {
     if (tab === index) return styles.active;
     return '';
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product!, cartData);
   };
 
   return (
@@ -53,7 +62,10 @@ export const ProductDetail: React.FC<IProps> = ({ product }) => {
         <Typography className={styles.description} variant="body1" component="div">
           {product?.description}
         </Typography>
-        <Button variant="contained" disabled={product!.inStock > 0 ? false : true}>
+        <Button
+          variant="contained"
+          disabled={product!.inStock > 0 ? false : true}
+          onClick={handleAddToCart}>
           Купить
         </Button>
       </div>

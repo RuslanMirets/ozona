@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
+import { useActions } from '../../hooks/useActions';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { IProduct } from '../../types/product';
 
 interface IProps {
@@ -17,6 +19,13 @@ interface IProps {
 }
 
 export const ProductItem: React.FC<IProps> = ({ product }) => {
+  const { addToCart } = useActions();
+  const { cartData } = useAppSelector((state) => state.cart);
+
+  const handleAddToCart = () => {
+    addToCart(product!, cartData);
+  };
+
   return (
     <Card>
       <CardActionArea>
@@ -59,7 +68,11 @@ export const ProductItem: React.FC<IProps> = ({ product }) => {
             <a>Подробнее</a>
           </Link>
         </Button>
-        <Button variant="contained" fullWidth>
+        <Button
+          variant="contained"
+          fullWidth
+          disabled={product.inStock > 0 ? false : true}
+          onClick={handleAddToCart}>
           Купить
         </Button>
       </CardActions>
