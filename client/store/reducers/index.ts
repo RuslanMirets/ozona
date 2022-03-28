@@ -4,12 +4,14 @@ import { notifyReducer } from './notify';
 import { userReducer } from './user';
 import { combineReducers } from 'redux';
 import { HYDRATE } from 'next-redux-wrapper';
+import { orderReducer } from './order';
 
 const rootReducer = combineReducers({
   user: userReducer,
   notify: notifyReducer,
   product: productReducer,
   cart: cartReducer,
+  order: orderReducer,
 });
 
 export const reducer = (state: any, action: any) => {

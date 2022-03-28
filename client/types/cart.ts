@@ -16,11 +16,11 @@ interface AddToCartAction {
 }
 interface IncrementAction {
   type: CartActionTypes.INCREMENT;
-  payload: string;
+  payload: any;
 }
 interface DecrementAction {
   type: CartActionTypes.DECREMENT;
-  payload: string;
+  payload: any;
 }
 
 export type CartAction = AddToCartAction | IncrementAction | DecrementAction;

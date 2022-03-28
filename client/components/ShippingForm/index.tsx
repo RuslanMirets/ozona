@@ -3,7 +3,10 @@ import { Button } from '@mui/material';
 import Link from 'next/link';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useActions } from '../../hooks/useActions';
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { CartActionTypes } from '../../types/cart';
 import { ShippingFormSchema } from '../../utils/validations';
 import { FormField } from '../FormField';
 import styles from './ShippingForm.module.scss';
@@ -13,7 +16,10 @@ interface IProps {
 }
 
 export const ShippingForm: React.FC<IProps> = ({ total }) => {
+  const dispatch = useDispatch();
+  const { createOrder } = useActions();
   const { userData } = useAppSelector((state) => state.user);
+  const { cartData } = useAppSelector((state) => state.cart);
 
   const methods = useForm({
     mode: 'onChange',
@@ -22,8 +28,15 @@ export const ShippingForm: React.FC<IProps> = ({ total }) => {
   });
 
   const onSubmit = (orderData: any) => {
-    console.log(orderData);
-    methods.reset();
+    const data = {
+      address: orderData.address,
+      phone: orderData.phone,
+      cart: cartData,
+      total,
+    };
+    createOrder(data);
+    // dispatch({ type: CartActionTypes.ADD_TO_CART, payload: [] });
+    // methods.reset();
   };
 
   return (

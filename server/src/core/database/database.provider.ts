@@ -1,3 +1,5 @@
+import { UserOrder } from './../../modules/order/models/user-order';
+import { Order } from './../../modules/order/models/order.model';
 import { Product } from './../../modules/product/models/product.model';
 import { UserRole } from './../../modules/role/models/user-role.model';
 import { Role } from './../../modules/role/models/role.model';
@@ -25,7 +27,7 @@ export const databaseProvider = [
           config = databaseConfig.development;
       }
       const sequelize = new Sequelize(config);
-      sequelize.addModels([User, Role, UserRole, Product]);
+      sequelize.addModels([User, Role, UserRole, Product, Order, UserOrder]);
       await sequelize.sync();
       return sequelize;
     },

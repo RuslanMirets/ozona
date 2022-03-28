@@ -1,4 +1,6 @@
+import { UserOrder } from './../../order/models/user-order';
 import { BelongsToMany, Table, Model, Column, DataType } from 'sequelize-typescript';
+import { Order } from 'src/modules/order/models/order.model';
 import { Role } from 'src/modules/role/models/role.model';
 import { UserRole } from 'src/modules/role/models/user-role.model';
 
@@ -21,4 +23,7 @@ export class User extends Model<User> {
 
   @Column({ type: DataType.STRING, allowNull: false, defaultValue: '' })
   avatar: string;
+
+  @BelongsToMany(() => Order, () => UserOrder)
+  order: Order[];
 }

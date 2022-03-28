@@ -18,4 +18,14 @@ export class ProductService {
   async findOneById(id: number) {
     return await this.productRepository.findOne({ where: { id } });
   }
+
+  async sold(id: number, quantity: number, oldInStock: number, oldSold: number) {
+    return await this.productRepository.update(
+      {
+        inStock: oldInStock - quantity,
+        sold: quantity + oldSold,
+      },
+      { where: { id: id } },
+    );
+  }
 }
