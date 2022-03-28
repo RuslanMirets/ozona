@@ -1,7 +1,9 @@
+import { Button } from '@mui/material';
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CartItem } from '../components/CartItem';
+import { CartItemsModal } from '../components/Modals/CartItemsModal';
 import { ShippingForm } from '../components/ShippingForm';
 import { useActions } from '../hooks/useActions';
 import { useAppSelector } from '../hooks/useAppSelector';
@@ -12,7 +14,7 @@ import { getAPI } from '../utils/fetchData';
 
 const Cart: NextPage = () => {
   const dispatch = useDispatch();
-  const { increaseQuantity, decreaseQuantity } = useActions();
+  const { increaseQuantity, decreaseQuantity, deleteItems } = useActions();
   const { cartData } = useAppSelector((state) => state.cart);
 
   const [total, setTotal] = useState(0);
@@ -52,10 +54,17 @@ const Cart: NextPage = () => {
     }
   }, []);
 
+  const [openModal, setOpenModal] = useState(false);
+  const handleToggleModal = () => {
+    setOpenModal(!openModal);
+  };
+
   if (cartData.length === 0) {
     return (
       <MainLayout title="Корзина">
-        <h1>Корзина пуста</h1>
+        <div className="cart">
+          <img className="empty-cart" src="/assets/images/empty-cart.jpg" alt="empty-cart" />
+        </div>
       </MainLayout>
     );
   }
@@ -75,12 +84,20 @@ const Cart: NextPage = () => {
               />
             ))}
           </div>
+          <Button
+            sx={{ display: 'flex', margin: '20px 0 0 auto' }}
+            variant="contained"
+            color="error"
+            onClick={handleToggleModal}>
+            Удалить все
+          </Button>
         </div>
         <div className="cart__shipping">
           <h2>Доставка</h2>
           <ShippingForm total={total} />
         </div>
       </div>
+      <CartItemsModal open={openModal} onClose={handleToggleModal} deleteItems={deleteItems} />
     </MainLayout>
   );
 };

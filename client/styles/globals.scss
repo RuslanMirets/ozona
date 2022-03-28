@@ -75,9 +75,12 @@ img {
   &__info {
     height: 100%;
     flex-basis: 65%;
-    border-bottom: 1px solid #dee2e6;
   }
   &__shipping {
     flex-basis: 35%;
   }
+}
+
+.empty-cart {
+  margin: 0 auto;
 }

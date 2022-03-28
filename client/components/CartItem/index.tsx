@@ -1,10 +1,12 @@
 import { Button, IconButton } from '@mui/material';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CartItem.module.scss';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { IProduct } from '../../types/product';
 import { CartActionTypes } from '../../types/cart';
+import { CartItemModal } from '../Modals/CartItemModal';
+import { useActions } from '../../hooks/useActions';
 
 interface IProps {
   item: IProduct;
@@ -13,11 +15,18 @@ interface IProps {
 }
 
 export const CartItem: React.FC<IProps> = ({ item, increase, decrease }) => {
+  const { deleteItem } = useActions();
+
   const handleIncrease = () => {
     increase(item.id);
   };
   const handleDecrease = () => {
     decrease(item.id);
+  };
+
+  const [openModal, setOpenModal] = useState(false);
+  const handleToggleModal = () => {
+    setOpenModal(!openModal);
   };
 
   return (
@@ -54,10 +63,16 @@ export const CartItem: React.FC<IProps> = ({ item, increase, decrease }) => {
         </Button>
       </div>
       <div className={styles.remove}>
-        <IconButton>
+        <IconButton onClick={handleToggleModal}>
           <DeleteOutlinedIcon />
         </IconButton>
       </div>
+      <CartItemModal
+        deleteItem={deleteItem}
+        open={openModal}
+        onClose={handleToggleModal}
+        item={item}
+      />
     </div>
   );
 };

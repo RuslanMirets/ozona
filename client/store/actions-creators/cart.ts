@@ -52,3 +52,23 @@ export const decreaseQuantity = (payload: string) => {
     return dispatch({ type: CartActionTypes.DECREMENT, payload });
   };
 };
+
+export const deleteItem = (cartData: IProduct[], id: number) => {
+  return async (dispatch: Dispatch<CartAction | NotifyAction>) => {
+    try {
+      const newData = cartData.filter((item) => item.id !== id);
+      dispatch({ type: CartActionTypes.ADD_TO_CART, payload: newData });
+    } catch (error) {
+      dispatch({
+        type: NotifyActionTypes.NOTIFY,
+        payload: { errors: 'Ошибка при удалении товара из корзины' },
+      });
+    }
+  };
+};
+
+export const deleteItems = () => {
+  return async (dispatch: Dispatch<CartAction>) => {
+    return dispatch({ type: CartActionTypes.ADD_TO_CART, payload: [] });
+  };
+};
