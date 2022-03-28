@@ -16,7 +16,10 @@ const Cart: NextPage = () => {
 
   return (
     <MainLayout title="Корзина">
-      <h1>Корзина </h1>
+      <h1>Корзина</h1>
+      {cartData.map((cart) => (
+        <div>{cart.title}</div>
+      ))}
     </MainLayout>
   );
 };

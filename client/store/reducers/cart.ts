@@ -1,10 +1,11 @@
 import { CartAction, CartActionTypes, CartState } from '../../types/cart';
 
 const initialState: CartState = {
-  cartData:
-    typeof window !== 'undefined' && localStorage.getItem('__next__cart__ozona')
-      ? JSON.parse(localStorage.getItem('__next__cart__ozona') || '')
-      : [],
+  // cartData:
+  //   typeof window !== 'undefined' && localStorage.getItem('__next__cart__ozona')
+  //     ? JSON.parse(localStorage.getItem('__next__cart__ozona') || '')
+  //     : [],
+  cartData: [],
 };
 
 export const cartReducer = (state = initialState, action: CartAction): CartState => {

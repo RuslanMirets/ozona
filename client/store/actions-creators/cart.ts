@@ -29,8 +29,6 @@ export const addToCart = (product: IProduct, cart: IProduct[]) => {
           payload: [...cart, { ...product, quantity: 1 }],
         });
 
-        localStorage.setItem('__next__cart__ozona', JSON.stringify(cart));
-
         dispatch({ type: NotifyActionTypes.NOTIFY, payload: { errors: '' } });
         dispatch({
           type: NotifyActionTypes.NOTIFY,

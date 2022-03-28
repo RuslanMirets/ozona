@@ -52,7 +52,7 @@ export const register = (data: IUser) => {
 export const logout = () => {
   return async (dispatch: Dispatch<UserAction>) => {
     try {
-      destroyCookie(null, 'ozonaToken', null);
+      destroyCookie(null, 'ozonaToken');
       dispatch({ type: UserActionTypes.LOGOUT });
     } catch (error) {
       console.log(error);
