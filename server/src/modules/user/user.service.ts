@@ -15,7 +15,7 @@ export class UserService {
     return await this.userRepository.findOne<User>({ where: { email }, include: { all: true } });
   }
 
-  async findOneById(id: string): Promise<User> {
+  async findOneById(id: number): Promise<User> {
     return await this.userRepository.findOne<User>({ where: { id }, include: { all: true } });
   }
 

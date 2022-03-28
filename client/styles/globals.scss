@@ -62,3 +62,22 @@ img {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
+.cart {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  h2 {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  &__info {
+    height: 100%;
+    flex-basis: 65%;
+    border-bottom: 1px solid #dee2e6;
+  }
+  &__shipping {
+    flex-basis: 35%;
+  }
+}

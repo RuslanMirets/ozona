@@ -1,18 +1,17 @@
-import { UUIDV4 } from 'sequelize';
 import { Table, Model, Column, DataType, ForeignKey } from 'sequelize-typescript';
 import { User } from 'src/modules/user/models/user.model';
 import { Role } from './role.model';
 
 @Table({ tableName: 'UserRole', createdAt: false, updatedAt: false })
 export class UserRole extends Model<UserRole> {
-  @Column({ type: DataType.UUID, defaultValue: UUIDV4, unique: true, primaryKey: true })
-  id: string;
+  @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
+  id: number;
 
   @ForeignKey(() => User)
-  @Column({ type: DataType.UUID })
-  userId: string;
+  @Column({ type: DataType.INTEGER })
+  userId: number;
 
   @ForeignKey(() => Role)
-  @Column({ type: DataType.UUID })
-  roleId: string;
+  @Column({ type: DataType.INTEGER })
+  roleId: number;
 }

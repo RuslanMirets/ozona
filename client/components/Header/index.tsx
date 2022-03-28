@@ -53,28 +53,30 @@ export const Header: React.FC = () => {
             </a>
           </Link>
           <Box className={styles.menu}>
-            <Button>
-              <Link href="/catalog">
-                <a>Каталог</a>
-              </Link>
-            </Button>
-            <Button>
-              <Link href="/users">
-                <a>Пользователи</a>
-              </Link>
-            </Button>
+            <Link href="/catalog">
+              <a>
+                <Button>Каталог</Button>
+              </a>
+            </Link>
+            <Link href="/users">
+              <a>
+                <Button>Пользователи</Button>
+              </a>
+            </Link>
           </Box>
           <Box className={styles.actions}>
-            <Button
-              startIcon={
-                <Badge badgeContent={`${cartData.length}`} color="error">
-                  <LocalMallOutlinedIcon />
-                </Badge>
-              }>
-              <Link href="/cart">
-                <a>Корзина</a>
-              </Link>
-            </Button>
+            <Link href="/cart">
+              <a>
+                <Button
+                  startIcon={
+                    <Badge badgeContent={`${cartData.length}`} color="error">
+                      <LocalMallOutlinedIcon />
+                    </Badge>
+                  }>
+                  Корзина
+                </Button>
+              </a>
+            </Link>
             {userData ? (
               <>
                 <Button onClick={handleOpenUserMenu}>
@@ -96,27 +98,27 @@ export const Header: React.FC = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}>
                   <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">
-                      <Link href="#">
-                        <a>Профиль</a>
-                      </Link>
-                    </Typography>
+                    <Link href="#">
+                      <a>
+                        <Typography textAlign="center">Профиль</Typography>
+                      </a>
+                    </Link>
                   </MenuItem>
                   {isAdmin && (
                     <>
                       <MenuItem onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">
-                          <Link href="#">
-                            <a>Админ</a>
-                          </Link>
-                        </Typography>
+                        <Link href="#">
+                          <a>
+                            <Typography textAlign="center">Админ</Typography>
+                          </a>
+                        </Link>
                       </MenuItem>
                       <MenuItem onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">
-                          <Link href="#">
-                            <a>Настройки</a>
-                          </Link>
-                        </Typography>
+                        <Link href="#">
+                          <a>
+                            <Typography textAlign="center">Настройки</Typography>
+                          </a>
+                        </Link>
                       </MenuItem>
                     </>
                   )}
@@ -127,11 +129,11 @@ export const Header: React.FC = () => {
                 </Menu>
               </>
             ) : (
-              <Button startIcon={<AccountCircleOutlinedIcon />}>
-                <Link href="/login">
-                  <a>Войти</a>
-                </Link>
-              </Button>
+              <Link href="/login">
+                <a>
+                  <Button startIcon={<AccountCircleOutlinedIcon />}>Войти</Button>
+                </a>
+              </Link>
             )}
           </Box>
         </Toolbar>

@@ -40,3 +40,15 @@ export const addToCart = (product: IProduct, cart: IProduct[]) => {
     }
   };
 };
+
+export const increaseQuantity = (payload: string) => {
+  return async (dispatch: Dispatch<CartAction>) => {
+    return dispatch({ type: CartActionTypes.INCREMENT, payload });
+  };
+};
+
+export const decreaseQuantity = (payload: string) => {
+  return async (dispatch: Dispatch<CartAction>) => {
+    return dispatch({ type: CartActionTypes.DECREMENT, payload });
+  };
+};

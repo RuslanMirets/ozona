@@ -14,3 +14,7 @@ export const RegisterFormSchema = yup
     name: yup.string().required('Имя обязательно'),
   })
   .concat(LoginFormSchema);
+
+export const ShippingFormSchema = yup.object().shape({
+  address: yup.string().required('Введите адрес'),
+});

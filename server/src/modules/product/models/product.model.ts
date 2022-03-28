@@ -1,10 +1,9 @@
-import { UUIDV4 } from 'sequelize';
 import { Table, Model, Column, DataType } from 'sequelize-typescript';
 
 @Table({ tableName: 'Product' })
 export class Product extends Model<Product> {
-  @Column({ type: DataType.UUID, defaultValue: UUIDV4, unique: true, primaryKey: true })
-  id: string;
+  @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
+  id: number;
 
   @Column({ type: DataType.STRING, allowNull: false })
   title: string;
