@@ -1,14 +1,14 @@
 import { IRole } from './role';
 
 export interface IUser {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-  createdAt: Date;
-  updatedAt: Date;
-  avatar: string;
-  role: IRole[];
+  id?: number;
+  name?: string;
+  email?: string;
+  password?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  avatar?: string;
+  role?: IRole[];
 }
 
 export interface UserState {
@@ -22,6 +22,8 @@ export enum UserActionTypes {
   LOGIN = 'LOGIN',
   REGISTER = 'REGISTER',
   LOGOUT = 'LOGOUT',
+  UPDATE_NAME = 'UPDATE_NAME',
+  UPDATE_AVATAR = 'UPDATE_AVATAR',
 }
 
 interface FetchUsersAction {
@@ -39,5 +41,19 @@ interface RegisterAction {
 interface LogoutAction {
   type: UserActionTypes.LOGOUT;
 }
+interface UpdateNameAction {
+  type: UserActionTypes.UPDATE_NAME;
+  payload: string;
+}
+interface UpdateAvatarAction {
+  type: UserActionTypes.UPDATE_AVATAR;
+  payload: string;
+}
 
-export type UserAction = FetchUsersAction | LoginAction | RegisterAction | LogoutAction;
+export type UserAction =
+  | FetchUsersAction
+  | LoginAction
+  | RegisterAction
+  | LogoutAction
+  | UpdateNameAction
+  | UpdateAvatarAction;

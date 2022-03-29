@@ -19,6 +19,7 @@ import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useActions } from '../../hooks/useActions';
+import { SERVER } from '../../utils/constants';
 
 export const Header: React.FC = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
@@ -29,7 +30,6 @@ export const Header: React.FC = () => {
     setAnchorElUser(null);
   };
 
-  const avatar = true;
   const isAdmin = false;
 
   const { logout } = useActions();
@@ -80,10 +80,15 @@ export const Header: React.FC = () => {
             {userData ? (
               <>
                 <Button onClick={handleOpenUserMenu}>
-                  <Avatar src={avatar ? '' : ''} alt="Avatar" sx={{ marginRight: '10px' }} />
+                  <Avatar
+                    src={userData.avatar ? `${SERVER}/user/avatar/${userData.avatar}` : ''}
+                    alt="Avatar"
+                    sx={{ marginRight: '10px' }}
+                  />
                   {userData.name}
                 </Button>
                 <Menu
+                  classes={{ list: styles.submenu }}
                   sx={{ mt: '40px' }}
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -97,29 +102,29 @@ export const Header: React.FC = () => {
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}>
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Link href="#">
-                      <a>
+                  <Link href="/profile">
+                    <a>
+                      <MenuItem onClick={handleCloseUserMenu}>
                         <Typography textAlign="center">Профиль</Typography>
-                      </a>
-                    </Link>
-                  </MenuItem>
+                      </MenuItem>
+                    </a>
+                  </Link>
                   {isAdmin && (
                     <>
-                      <MenuItem onClick={handleCloseUserMenu}>
-                        <Link href="#">
-                          <a>
+                      <Link href="#">
+                        <a>
+                          <MenuItem onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">Админ</Typography>
-                          </a>
-                        </Link>
-                      </MenuItem>
-                      <MenuItem onClick={handleCloseUserMenu}>
-                        <Link href="#">
-                          <a>
+                          </MenuItem>
+                        </a>
+                      </Link>
+                      <Link href="#">
+                        <a>
+                          <MenuItem onClick={handleCloseUserMenu}>
                             <Typography textAlign="center">Настройки</Typography>
-                          </a>
-                        </Link>
-                      </MenuItem>
+                          </MenuItem>
+                        </a>
+                      </Link>
                     </>
                   )}
                   <Divider variant="middle" />

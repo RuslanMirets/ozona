@@ -35,8 +35,8 @@ export const ShippingForm: React.FC<IProps> = ({ total }) => {
       total,
     };
     createOrder(data);
-    // dispatch({ type: CartActionTypes.ADD_TO_CART, payload: [] });
-    // methods.reset();
+    dispatch({ type: CartActionTypes.ADD_TO_CART, payload: [] });
+    methods.reset();
   };
 
   return (

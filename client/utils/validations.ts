@@ -18,3 +18,8 @@ export const RegisterFormSchema = yup
 export const ShippingFormSchema = yup.object().shape({
   address: yup.string().required('Введите адрес'),
 });
+
+export const UpdateProfileFormSchema = yup.object().shape({
+  password: yup.string().min(6, 'Пароль должен быть не менее 6 символов'),
+  cf_password: yup.string().oneOf([yup.ref('password'), null], 'Пароль не совпадает'),
+});

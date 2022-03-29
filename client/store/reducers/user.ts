@@ -16,6 +16,10 @@ export const userReducer = (state = initialState, action: UserAction): UserState
       return { ...state, registerData: action.payload };
     case UserActionTypes.LOGOUT:
       return { ...state, userData: null };
+    case UserActionTypes.UPDATE_NAME:
+      return { ...state, userData: { ...state.userData, name: action.payload } };
+    case UserActionTypes.UPDATE_AVATAR:
+      return { ...state, userData: { ...state.userData, avatar: action.payload } };
     default:
       return state;
   }
