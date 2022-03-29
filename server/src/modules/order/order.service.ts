@@ -1,3 +1,4 @@
+import { CartDataDto } from './dto/cart-data.dto';
 import { Inject, Injectable, UseGuards } from '@nestjs/common';
 import { ORDER_REPOSITORY } from 'src/core/constants';
 import { ProductService } from '../product/product.service';
