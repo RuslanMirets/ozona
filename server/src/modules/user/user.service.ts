@@ -40,8 +40,6 @@ export class UserService {
 
   async updateName(userId: number, dto: UpdateInfoDto) {
     await this.userRepository.update({ name: dto.name }, { where: { id: userId } });
-
-    // return { name: dto.name, avatar: newUser.avatar, email: newUser.email, role: newUser.role };
     return { name: dto.name };
   }
 
@@ -50,8 +48,6 @@ export class UserService {
       throw new NotFoundException('Загрузите изображение');
     }
     await this.userRepository.update({ avatar: dto.filename }, { where: { id: userId } });
-
-    // return { name: newUser.name, avatar: dto.filename, email: newUser.email, role: newUser.role };
     return { avatar: dto.filename };
   }
 }

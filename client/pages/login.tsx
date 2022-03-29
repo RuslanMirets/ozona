@@ -27,7 +27,7 @@ const Login: NextPage = () => {
 
   const router = useRouter();
   useEffect(() => {
-    userData && router.push('/');
+    userData && router.push('/profile');
   }, [userData]);
 
   if (userData) return <MainLayout title="Авторизация"></MainLayout>;

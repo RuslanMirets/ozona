@@ -1,5 +1,5 @@
-import { CartDataDto } from './dto/cart-data.dto';
-import { Inject, Injectable, UseGuards } from '@nestjs/common';
+import { User } from './../user/models/user.model';
+import { Inject, Injectable } from '@nestjs/common';
 import { ORDER_REPOSITORY } from 'src/core/constants';
 import { ProductService } from '../product/product.service';
 import { UserService } from '../user/user.service';
@@ -31,5 +31,18 @@ export class OrderService {
 
   async findAll() {
     return await this.orderRepository.findAll();
+  }
+
+  async getUserOrders(id: number) {
+    return await this.orderRepository.findAll({
+      include: [{ model: User, required: true, where: { id } }],
+    });
+  }
+
+  async findOneById(id: number) {
+    return await this.orderRepository.findOne({
+      where: { id },
+      include: { model: User, attributes: ['name', 'email'] },
+    });
   }
 }
