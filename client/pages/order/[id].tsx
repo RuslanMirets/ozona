@@ -9,12 +9,14 @@ import { DetailOrder } from '../../components/DetailOrder';
 import { useRouter } from 'next/router';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import { Button } from '@mui/material';
+import { useActions } from '../../hooks/useActions';
 
 interface IParams extends ParsedUrlQuery {
   id: string;
 }
 
 const Order: NextPage = () => {
+  const { deliveredOrder } = useActions();
   const { detailOrder } = useAppSelector((state) => state.order);
   const { userData } = useAppSelector((state) => state.user);
 
@@ -32,7 +34,7 @@ const Order: NextPage = () => {
           <ArrowBackOutlinedIcon /> Назад
         </Button>
       </div>
-      <DetailOrder order={detailOrder} />
+      <DetailOrder order={detailOrder!} user={userData} deliveredOrder={deliveredOrder} />
     </MainLayout>
   );
 };

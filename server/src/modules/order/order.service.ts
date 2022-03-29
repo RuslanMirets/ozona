@@ -45,4 +45,9 @@ export class OrderService {
       include: { model: User, attributes: ['name', 'email'] },
     });
   }
+
+  async deliveredOrder(id: number) {
+    await this.orderRepository.update({ delivered: true }, { where: { id } });
+    return { delivered: true };
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { User } from 'src/core/decorators/user.decorator';
 import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -29,5 +29,11 @@ export class OrderController {
   @Get(':id')
   findOneById(@Param('id') id: number) {
     return this.orderService.findOneById(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('delivered/:id')
+  deliveredOrder(@Param('id') id: number) {
+    return this.orderService.deliveredOrder(id);
   }
 }

@@ -15,7 +15,7 @@ export interface IOrder {
 
 export interface OrderState {
   orderData: IOrder | null;
-  userOrders: IOrder[];
+  orders: IOrder[];
   detailOrder: IOrder | null;
 }
 
@@ -23,6 +23,8 @@ export enum OrderActionTypes {
   CREATE_ORDER = 'CREATE_ORDER',
   GET_USER_ORDERS = 'GET_USER_ORDERS',
   GET_DETAIL_ORDER = 'GET_DETAIL_ORDER',
+  GET_ORDERS = 'GET_ORDERS',
+  DELIVERED_ORDER = 'DELIVERED_ORDER',
 }
 
 interface CreateOrderAction {
@@ -37,5 +39,18 @@ interface GetDetailOrderAction {
   type: OrderActionTypes.GET_DETAIL_ORDER;
   payload: IOrder;
 }
+interface GetOrdersAction {
+  type: OrderActionTypes.GET_ORDERS;
+  payload: IOrder[];
+}
+interface DeliveredOrderAction {
+  type: OrderActionTypes.DELIVERED_ORDER;
+  payload: any;
+}
 
-export type OrderAction = CreateOrderAction | GetUserOrdersAction | GetDetailOrderAction;
+export type OrderAction =
+  | CreateOrderAction
+  | GetUserOrdersAction
+  | GetDetailOrderAction
+  | GetOrdersAction
+  | DeliveredOrderAction;

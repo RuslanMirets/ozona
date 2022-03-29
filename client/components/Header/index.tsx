@@ -6,7 +6,6 @@ import {
   Button,
   Container,
   Divider,
-  dividerClasses,
   Menu,
   MenuItem,
   Toolbar,
@@ -29,8 +28,6 @@ export const Header: React.FC = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
-  const isAdmin = false;
 
   const { logout } = useActions();
   const { userData } = useAppSelector((state) => state.user);
@@ -109,19 +106,26 @@ export const Header: React.FC = () => {
                       </MenuItem>
                     </a>
                   </Link>
-                  {isAdmin && (
+                  {userData?.role?.[0].value === 'ADMIN' && (
                     <>
-                      <Link href="#">
+                      <Link href="/users">
                         <a>
                           <MenuItem onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center">Админ</Typography>
+                            <Typography textAlign="center">Пользователи</Typography>
                           </MenuItem>
                         </a>
                       </Link>
-                      <Link href="#">
+                      <Link href="/create">
                         <a>
                           <MenuItem onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center">Настройки</Typography>
+                            <Typography textAlign="center">Товары</Typography>
+                          </MenuItem>
+                        </a>
+                      </Link>
+                      <Link href="/categories">
+                        <a>
+                          <MenuItem onClick={handleCloseUserMenu}>
+                            <Typography textAlign="center">Категории</Typography>
                           </MenuItem>
                         </a>
                       </Link>
