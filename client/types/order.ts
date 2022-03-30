@@ -3,14 +3,14 @@ import { IUser } from './user';
 
 export interface IOrder {
   id?: number;
-  address: string;
-  phone: string;
+  address?: string;
+  phone?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  total: number;
+  total?: number;
   delivered?: boolean;
   user?: IUser[];
-  cart: IProduct[];
+  cart?: IProduct[];
 }
 
 export interface OrderState {

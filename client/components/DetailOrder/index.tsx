@@ -42,7 +42,7 @@ export const DetailOrder: React.FC<IProps> = ({ order, user, deliveredOrder }) =
       <div className={styles.orderItems}>
         <h4>Товары для заказа</h4>
         <div>
-          {order.cart.map((item) => (
+          {order.cart?.map((item) => (
             <div className={styles.item} key={item.id}>
               <Link href={`/product/${item.id}`}>
                 <a>
